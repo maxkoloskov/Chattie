@@ -1,0 +1,25 @@
+{
+  "name": "Chattie",
+  "version": "0.0.1",
+  "description": "Chat app based on node.js, socket.io, mongodb. My personal sandbox.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mirrh/chattie"
+  },
+  "keywords": [
+    "chat",
+    "websocket",
+    "group chat",
+    "multiroom chat"
+  ],
+  "author": "Max Koloskov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mirrh/chattie/issues"
+  },
+  "homepage": "https://github.com/mirrh/chattie"
+}
