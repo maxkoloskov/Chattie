@@ -1,4 +1,5 @@
-var mongoose = require('../lib/mongoose');
+var mongoose = require('../lib/mongoose'),
+    ObjectId = mongoose.Schema.Types.ObjectId;
 var crypto = require('crypto');
 
 var UserSchema = new mongoose.Schema({
@@ -25,7 +26,15 @@ var UserSchema = new mongoose.Schema({
     isAdmin: {
         type: Boolean,
         default: false
-    }
+    },
+    channels: [{
+        type: ObjectId,
+        ref: 'Channel'
+    }],
+    messages: [{
+        type: ObjectId,
+        ref: 'Message'
+    }]
 });
 
 /* Virtuals */
@@ -76,4 +85,4 @@ UserSchema.statics = {
     }
 };
 
-exports.User = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema);
