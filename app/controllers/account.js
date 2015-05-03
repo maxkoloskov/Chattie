@@ -1,8 +1,11 @@
+var requireAuth = require('./../middlewares/requireAuth');
+var auth = require('./../lib/auth');
+
 module.exports = function(opts) {
     var app = opts.app;
     var io = opts.io;
 
-    app.get('/', function(req, res) {
+    app.get('/', requireAuth, function(req, res) {
         res.render('chat');
     });
 
@@ -13,5 +16,19 @@ module.exports = function(opts) {
     app.get('/logout', function(req, res) {
         req.session.destroy();
         res.redirect('/login');
+    });
+
+    app.post('/account/login', function(req, res) {
+
+
+        auth.authenticate('local', {
+            failureRedirect: '/',
+            successRedirect: '/'
+        })(req, res);
+    });
+
+    app.get('/account', requireAuth, function(req, res) {
+
+        res.json(req.user);
     });
 };

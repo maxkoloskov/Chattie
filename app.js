@@ -7,7 +7,10 @@ var express = require('express'),
     logger = require('morgan'),
     _ = require('lodash');
 
+var models = require('./app/models');
+
 var config = require('./app/config'),
+    auth = require('./app/lib/auth'),
     mongoose = require('./app/lib/mongoose');
 
 var app = express();
@@ -38,6 +41,10 @@ app.use(session({
     saveUninitialized: config.session.saveUninitialized,
     store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
+
+/* Passport auth */
+app.use(auth.initialize());
+app.use(auth.session());
 
 /* Views and static */
 app.set('views', path.join(__dirname, 'app/views'));

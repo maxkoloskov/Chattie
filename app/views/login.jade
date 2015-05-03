@@ -3,5 +3,12 @@ extends layout
 block title
   title Login &bull; Chattie
 
+block css
+  link(rel='stylesheet' href='/css/style.css')
+
 block content
-  h1 Login
+  h1= Login
+  form(method='post' action='./account/login')
+    input(name='username', class='form-control', placeholder='username')
+    input(name='password', class='form-control', type='password', placeholder='password')
+    input(type='submit', class='btn btn-primary', value='Log in')

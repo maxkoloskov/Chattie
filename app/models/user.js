@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+var mongoose = require('../lib/mongoose');
 var crypto = require('crypto');
 
 var UserSchema = new mongoose.Schema({
@@ -70,7 +70,7 @@ UserSchema.statics = {
             if (user && user.authenticate(password)) {
                 callback(null, user);
             } else {
-                callback(new Error); // AuthError
+                callback(null, false); // AuthError
             }
         });
     }
