@@ -1,8 +1,24 @@
-var nconf = require('nconf'),
-    path = require('path');
+var env = process.env;
 
-nconf.argv()
-    .env()
-    .file({ file: path.join(__dirname, 'config.json') });
+module.exports = {
+    env: env.NODE_ENV,
 
-module.exports = nconf;
+    server: {
+        port: env.PORT || 3000,
+        host: env.HOST || '0.0.0.0'
+    },
+
+    mongoose: require('./mongoose'),
+
+    session: {
+        secret: 'secretsauce',
+        name: 'sid',
+        cookie: {
+            path: '/',
+            httpOnly: true,
+            maxAge: null
+        },
+        resave: false,
+        saveUninitialized: false
+    }
+};

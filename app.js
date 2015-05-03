@@ -1,42 +1,37 @@
 var express = require('express'),
-    http = require('http'),
     path = require('path'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
     MongoStore = require('connect-mongo')(session),
-    mongoose = require('mongoose'),
     logger = require('morgan');
 
-var config = require('./app/config');
+var config = require('./app/config'),
+    mongoose = require('./app/lib/mongoose');
 
 var app = express();
 
 /* Logger */
-if (config.get('env') === 'dev') {
+if (config.env === 'dev') {
     app.use(logger('dev'));
 }
-
-/* MongoDB */
-var connect = function () {
-    mongoose.connect(config.get('mongoose:uri'), config.get('mongoose:options'));
-};
-connect();
-mongoose.connection.on('error', console.log);
-mongoose.connection.on('disconnected', connect);
 
 /* HTTP */
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(function(req, res, next) {
+    res.setHeader('X-Powered-By', 'Chattie');
+    next();
+});
 
 /* Sessions */
 app.use(session({
-    secret: config.get('session:secret'),
-    cookie: config.get('session:cookie'),
-    name: config.get('session:name'),
-    resave: config.get('session:resave'),
-    saveUninitialized: config.get('session:saveUninitialized'),
+    secret: config.session.secret,
+    cookie: config.session.cookie,
+    name: config.session.name,
+    resave: config.session.resave,
+    saveUninitialized: config.session.saveUninitialized,
     store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
@@ -49,7 +44,4 @@ app.use(express.static(path.join(__dirname, 'public')));
 /* Controllers */
 
 
-/* Start server */
-var port = config.get('http:port') || 3000;
-http.createServer(app).listen(port);
-console.log('Listening on port ' + port);
+module.exports = app;

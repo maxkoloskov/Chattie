@@ -31,7 +31,7 @@
     "jade": "^1.9.2",
     "mongoose": "^3.8.25",
     "morgan": "^1.5.2",
-    "nconf": "^0.7.1",
+    "require-directory": "^2.1.0",
     "stylus": "^0.50.0"
   }
 }
