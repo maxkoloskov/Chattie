@@ -4,12 +4,16 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
     MongoStore = require('connect-mongo')(session),
-    logger = require('morgan');
+    logger = require('morgan'),
+    _ = require('lodash');
 
 var config = require('./app/config'),
     mongoose = require('./app/lib/mongoose');
 
 var app = express();
+
+/* io setup */
+app.io = require('socket.io')();
 
 /* Logger */
 if (config.env === 'dev') {
@@ -38,10 +42,15 @@ app.use(session({
 /* Views and static */
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'jade');
-app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 /* Controllers */
-
+var controllers = require('./app/controllers');
+_.each(controllers, function(controller) {
+    controller({
+        app: app,
+        io: app.io
+    });
+});
 
 module.exports = app;
