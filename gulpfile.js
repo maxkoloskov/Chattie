@@ -8,7 +8,7 @@ gulp.task('stylus', function() {
 });
 
 gulp.task('watch', function() {
-    gulp.watch('public/styl/*.styl', ['stylus']);
+    gulp.watch('public/styl/**/*.styl', ['stylus']);
 });
 
 gulp.task('default', ['stylus', 'watch']);

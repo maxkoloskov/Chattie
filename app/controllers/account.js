@@ -6,7 +6,9 @@ module.exports = function(opts) {
     var io = opts.io;
 
     app.get('/', requireAuth, function(req, res) {
-        res.render('chat');
+        res.render('chat', {
+            user: req.user
+        });
     });
 
     app.get('/login', function(req, res) {
