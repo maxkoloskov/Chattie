@@ -1,0 +1,97 @@
+.c-account-menu
+  height: $headerHeight
+  padding: 5px 10px 5px
+  background: #07163A
+  border-bottom: 2px solid #020C22
+  .c-account-avatar
+    float: left
+    margin: 0 .5rem 0 0
+    width: 48px
+    height: 48px
+    border-radius: .2rem
+    opacity: 0.95
+    &:hover
+      opacity: 1
+  .c-account-username
+    font-weight: 800
+    line-height: 1.5rem
+    max-width: $sidebarWidth - 40px
+    display: block
+    text-overflow: ellipsis
+    overflow: hidden
+    white-space: nowrap
+    color: #fff
+  .c-connection-icon
+    position: absolute
+    top: 33px
+    left: 63px
+    width: 12px
+    height: 12px
+  .c-connection-status
+    margin-left: .7rem
+    font-size: .95rem
+    color: #aaa
+
+.c-navigation
+  font-size: 16px
+  .c-channels
+    margin: 1rem 0 2rem
+    div.c-channels-list-header
+      text-align: left
+      font-size: 1rem
+      line-height: 1.25rem
+      margin: 0 1rem .1rem
+      text-transform: uppercase
+      font-weight: 700
+      color: #888
+      display: block
+      width: 180px
+      &:hover
+        color: #fff
+        cursor: pointer
+      .c-channels-list-header-name
+        display: block
+    ul.c-channels-list
+      list-style-type: none
+      text-align: left
+      width: 100%
+      color: #888
+      padding: 0
+      display: block
+      li.c-channel-tab
+        margin-top: 1px
+        font-size: 1rem
+        line-height: 1.5rem
+        height: 1.5rem
+        position: relative
+        display: block
+        a, a:link, a:visited
+          color: #888
+          display: block
+          height: 1.5rem
+          padding: 0 .5rem 0 1rem
+          margin-left: 1rem
+          border-radius: 0.5rem 0 0 0.5rem
+          cursor: pointer
+          &:hover
+            background: #07163A
+            text-decoration: none
+          .c-channel-tab-title
+            width: 100% - 14rem
+            text-overflow: ellipsis
+            display: inline-block
+          .c-channel-tab-alerts
+            position: absolute
+            top: 3px
+            right: 1rem
+            font-weight: 700
+            line-height: 14px
+            font-size: .8rem
+            border-radius: 4px
+            background: #F22C40
+            padding: 2px 9px
+            vertical-align: baseline
+            color: #fff
+        &.active a
+          background: #020C22
+          color: #fff

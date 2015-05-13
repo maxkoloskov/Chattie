@@ -1,0 +1,43 @@
+/*
+* Base chat styles
+*/
+
+.c-client-ui
+  background: $colorBg
+  position: relative
+  height: 100%
+  overflow: hidden
+
+.c-header
+  position: fixed
+  top: 0
+  left: 0
+  right: $sidebarWidth
+  height: $headerHeight
+  z-index: 100
+  border-bottom: 1px solid #eee;
+  background: #f8f8f8
+
+.c-body
+  height: 100%
+  padding-top: $headerHeight
+  padding-bottom: $footerHeight
+  position: relative
+  overflow: hidden
+
+.c-footer
+  position: fixed
+  right: $sidebarWidth
+  bottom: 0
+  left: 0
+  z-index: 90
+  /*height: $footerHeight*/
+  background: #fff
+
+.c-sidebar
+  float: right
+  position: relative
+  height: 100%
+  width: $sidebarWidth
+  min-width: $sidebarWidth
+  background: #162955

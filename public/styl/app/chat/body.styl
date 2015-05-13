@@ -1,0 +1,42 @@
+.c-messages-container
+  position: relative
+  padding: 0 22px
+  height: 100%
+  overflow: auto
+
+.c-message
+  min-height: 40px
+  position: relative
+  margin: .5rem 0
+  font-size: 14px
+  &:fist-child
+    border-top: none
+  &:hover .c-message-avatar
+    opacity: 1
+
+.c-message-avatar
+  display: block
+  float: left
+  width: 38px
+  height: 38px
+  border-radius: .2rem
+  opacity: 0.82
+
+.c-message-meta
+  padding-left: 44px
+
+.c-massage-name
+  color: #666
+  margin-bottom: .3rem
+  font-weight: 700
+  display: block
+  .c-message-displayname
+    color: #aaa
+    font-weight: 400
+    margin-left: .5rem
+
+.c-message-time
+  position: absolute
+  right: 0
+  top: .5rem
+  color: #aaa

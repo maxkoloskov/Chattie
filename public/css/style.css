@@ -6510,7 +6510,15 @@ button.close {
 html,
 body {
   height: 100%;
-  font-family: ClearSans;
+  font-family: ClearSans, Helvetica, "Segoe UI", Tahoma, Arial, sans-serif;
+  width: 100%;
+  -webkit-font-smoothing: antialiased;
+  font-size: 16px;
+  line-height: 1rem;
+  background: #fffffe;
+  color: #555459;
+  padding: 0;
+  overflow: hidden;
 }
 .form-control {
   height: auto;
@@ -6557,4 +6565,290 @@ body {
   font-size: 18px;
   font-weight: 400;
   display: block;
+}
+.c-client-ui {
+  background: #fffffe;
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+.c-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 240px;
+  height: 60px;
+  z-index: 100;
+  border-bottom: 1px solid #eee;
+  background: #f8f8f8;
+}
+.c-body {
+  height: 100%;
+  padding-top: 60px;
+  padding-bottom: 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.c-footer {
+  position: fixed;
+  right: 240px;
+  bottom: 0;
+  left: 0;
+  z-index: 90;
+/*height: $footerHeight*/
+  background: #fff;
+}
+.c-sidebar {
+  float: right;
+  position: relative;
+  height: 100%;
+  width: 240px;
+  min-width: 240px;
+  background: #162955;
+}
+.c-account-menu {
+  height: 60px;
+  padding: 5px 10px 5px;
+  background: #07163a;
+  border-bottom: 2px solid #020c22;
+}
+.c-account-menu .c-account-avatar {
+  float: left;
+  margin: 0 0.5rem 0 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 0.2rem;
+  opacity: 0.95;
+}
+.c-account-menu .c-account-avatar:hover {
+  opacity: 1;
+}
+.c-account-menu .c-account-username {
+  font-weight: 800;
+  line-height: 1.5rem;
+  max-width: 200px;
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  color: #fff;
+}
+.c-account-menu .c-connection-icon {
+  position: absolute;
+  top: 33px;
+  left: 63px;
+  width: 12px;
+  height: 12px;
+}
+.c-account-menu .c-connection-status {
+  margin-left: 0.7rem;
+  font-size: 0.95rem;
+  color: #aaa;
+}
+.c-navigation {
+  font-size: 16px;
+}
+.c-navigation .c-channels {
+  margin: 1rem 0 2rem;
+}
+.c-navigation .c-channels div.c-channels-list-header {
+  text-align: left;
+  font-size: 1rem;
+  line-height: 1.25rem;
+  margin: 0 1rem 0.1rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #888;
+  display: block;
+  width: 180px;
+}
+.c-navigation .c-channels div.c-channels-list-header:hover {
+  color: #fff;
+  cursor: pointer;
+}
+.c-navigation .c-channels div.c-channels-list-header .c-channels-list-header-name {
+  display: block;
+}
+.c-navigation .c-channels ul.c-channels-list {
+  list-style-type: none;
+  text-align: left;
+  width: 100%;
+  color: #888;
+  padding: 0;
+  display: block;
+}
+.c-navigation .c-channels ul.c-channels-list li.c-channel-tab {
+  margin-top: 1px;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  height: 1.5rem;
+  position: relative;
+  display: block;
+}
+.c-navigation .c-channels ul.c-channels-list li.c-channel-tab a,
+.c-navigation .c-channels ul.c-channels-list li.c-channel-tab a:link,
+.c-navigation .c-channels ul.c-channels-list li.c-channel-tab a:visited {
+  color: #888;
+  display: block;
+  height: 1.5rem;
+  padding: 0 0.5rem 0 1rem;
+  margin-left: 1rem;
+  border-radius: 0.5rem 0 0 0.5rem;
+  cursor: pointer;
+}
+.c-navigation .c-channels ul.c-channels-list li.c-channel-tab a:hover,
+.c-navigation .c-channels ul.c-channels-list li.c-channel-tab a:link:hover,
+.c-navigation .c-channels ul.c-channels-list li.c-channel-tab a:visited:hover {
+  background: #07163a;
+  text-decoration: none;
+}
+.c-navigation .c-channels ul.c-channels-list li.c-channel-tab a .c-channel-tab-title,
+.c-navigation .c-channels ul.c-channels-list li.c-channel-tab a:link .c-channel-tab-title,
+.c-navigation .c-channels ul.c-channels-list li.c-channel-tab a:visited .c-channel-tab-title {
+  width: 86%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
+}
+.c-navigation .c-channels ul.c-channels-list li.c-channel-tab a .c-channel-tab-alerts,
+.c-navigation .c-channels ul.c-channels-list li.c-channel-tab a:link .c-channel-tab-alerts,
+.c-navigation .c-channels ul.c-channels-list li.c-channel-tab a:visited .c-channel-tab-alerts {
+  position: absolute;
+  top: 3px;
+  right: 1rem;
+  font-weight: 700;
+  line-height: 14px;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  background: #f22c40;
+  padding: 2px 9px;
+  vertical-align: baseline;
+  color: #fff;
+}
+.c-navigation .c-channels ul.c-channels-list li.c-channel-tab.active a {
+  background: #020c22;
+  color: #fff;
+}
+.c-messages-container {
+  position: relative;
+  padding: 0 22px;
+  height: 100%;
+  overflow: auto;
+}
+.c-message {
+  min-height: 40px;
+  position: relative;
+  margin: 0.5rem 0;
+  font-size: 14px;
+}
+.c-message:fist-child {
+  border-top: none;
+}
+.c-message:hover .c-message-avatar {
+  opacity: 1;
+}
+.c-message-avatar {
+  display: block;
+  float: left;
+  width: 38px;
+  height: 38px;
+  border-radius: 0.2rem;
+  opacity: 0.82;
+}
+.c-message-meta {
+  padding-left: 44px;
+}
+.c-massage-name {
+  color: #666;
+  margin-bottom: 0.3rem;
+  font-weight: 700;
+  display: block;
+}
+.c-massage-name .c-message-displayname {
+  color: #aaa;
+  font-weight: 400;
+  margin-left: 0.5rem;
+}
+.c-message-time {
+  position: absolute;
+  right: 0;
+  top: 0.5rem;
+  color: #aaa;
+}
+.c-channel-header {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  margin: 8px 0 0;
+}
+.c-channel-header .c-channel-title {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+  width: 100%;
+  color: #444;
+  line-height: 1.2rem;
+  font-size: 1.2rem;
+  margin-left: 20px;
+}
+.c-channel-header .c-channel-topic {
+  color: #9e9ea6;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  font-size: 0.9em;
+  line-height: 1.6rem;
+  margin-left: 21px;
+  max-width: 80%;
+  white-space: nowrap;
+}
+.c-msg-input-container {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 22px;
+  height: 40px;
+  font-size: 1rem;
+}
+.c-msg-input {
+  overflow-y: hidden;
+  height: 100%;
+  width: 100%;
+  background: #ccc olorBg;
+  font-size: 0.95rem;
+  line-height: 1.2rem;
+  border: 2px solid #e0e0e0;
+  margin: 0;
+  color: #3d3c40;
+  -webkit-appearance: none;
+  outline: 0;
+  position: absolute;
+  bottom: 0;
+  padding: 9px 9px 9px 9px;
+  max-height: 460px;
+  resize: none;
+  border-radius: 0.2rem 0.2rem 0.2rem 0.2rem;
+}
+.c-msg-input:focus {
+  border: 2px solid #50638f;
+}
+.c-notification-bar {
+  position: absolute;
+  bottom: 5px;
+  left: 20px;
+  width: 85%;
+}
+.c-notification-bar .c-notification-text {
+  color: #9e9ea6;
+  display: inline-block;
+  font-size: 0.7em;
+  line-height: 0.8rem;
+  max-width: 75%;
+  padding-left: 10px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }

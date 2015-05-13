@@ -32,6 +32,10 @@ var ChannelSchema = new mongoose.Schema({
     created: {
         type: Date,
         default: Date.now
+    },
+    lastActive: {
+        type: Date,
+        default: Date.now
     }
 });
 
@@ -42,6 +46,7 @@ ChannelSchema.method('toJSON', function() {
         displayName: this.displayName,
         description: this.description,
         created: this.created,
+        lastActive: this.lastActive,
         owner: this.owner
     };
 });

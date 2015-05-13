@@ -7,7 +7,10 @@ var express = require('express'),
     logger = require('morgan'),
     _ = require('lodash');
 
-var models = require('./app/models');
+var core = require('./app/core'),
+    models = require('./app/models'),
+    controllers = require('./app/controllers');
+
 
 var config = require('./app/config'),
     auth = require('./app/lib/auth'),
@@ -33,18 +36,19 @@ app.use(function(req, res, next) {
 });
 
 /* Sessions */
-app.use(session({
+var sessionOpts = {
     secret: config.session.secret,
     cookie: config.session.cookie,
-    name: config.session.name,
+    key: config.session.key,
     resave: config.session.resave,
     saveUninitialized: config.session.saveUninitialized,
     store: new MongoStore({ mongooseConnection: mongoose.connection })
-}));
+};
 
-/* Passport auth */
-app.use(auth.initialize());
-app.use(auth.session());
+app.use(session(sessionOpts));
+
+/* Auth */
+auth.setup(app, app.io, sessionOpts);
 
 /* Views and static */
 app.set('views', path.join(__dirname, 'app/views'));
@@ -52,11 +56,11 @@ app.set('view engine', 'jade');
 app.use(express.static(path.join(__dirname, 'public')));
 
 /* Controllers */
-var controllers = require('./app/controllers');
 _.each(controllers, function(controller) {
     controller({
         app: app,
-        io: app.io
+        io: app.io,
+        core: core
     });
 });
 

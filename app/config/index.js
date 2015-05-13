@@ -12,7 +12,7 @@ module.exports = {
 
     session: {
         secret: 'secretsauce',
-        name: 'sid',
+        key: 'sid',
         cookie: {
             path: '/',
             httpOnly: true,
