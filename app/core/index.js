@@ -2,9 +2,7 @@ var EventEmitter = require('events').EventEmitter,
     util = require('util'),
     MessageManager = require('./messageManager'),
     ChannelManager = require('./channelManager'),
-    AccountManager = require('./accountManager'),
-    ConnectionsControlManager = require('./connectionsControlManager');
-
+    AccountManager = require('./accountManager');
 
 function Core() {
     EventEmitter.call(this);
@@ -18,10 +16,6 @@ function Core() {
     });
 
     this.channels = new ChannelManager({
-        core: this
-    });
-
-    this.control = new ConnectionsControlManager({
         core: this
     });
 }

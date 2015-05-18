@@ -22,7 +22,7 @@ var app = express();
 app.io = require('socket.io')();
 
 /* Logger */
-if (config.env === 'dev') {
+if (config.env !== 'prod') {
     app.use(logger('dev'));
 }
 

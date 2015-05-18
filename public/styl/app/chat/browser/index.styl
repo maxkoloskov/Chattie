@@ -1,0 +1,52 @@
+@import './channel-body'
+@import './channel-header'
+@import './channel-footer'
+
+.c-background
+  position: absolute
+  top: 0
+  bottom: 0
+  left: 0
+  right: $sidebarWidth
+  height: 100%
+  background: url(/assets/bg-geometry.png)
+  .c-advice
+    width: 45%
+    min-width: 400px
+    margin: 80px auto
+    padding: 20px 10px
+    text-align: center
+    color: #c3c3c3
+    background: rgba(88, 88, 88, 0.1)
+    border-radius: 6px
+
+.c-channels
+  height: 100%
+  .c-channel
+    height: 100%
+
+.c-header
+  position: fixed
+  top: 0
+  left: 0
+  right: $sidebarWidth
+  height: $headerHeight
+  z-index: 100
+  border-bottom: 1px solid #eee;
+  background: #f8f8f8
+
+.c-body
+  height: 100%
+  padding-top: $headerHeight
+  padding-bottom: $footerHeight
+  position: relative
+  overflow: hidden
+
+.c-footer
+  position: fixed
+  right: $sidebarWidth
+  bottom: 0
+  left: 0
+  z-index: 90
+  height: $footerHeight
+  background: #fff

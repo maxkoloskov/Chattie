@@ -1,0 +1,21 @@
+<script type="text/x-handlebars-template" id="template-message">
+    <div class="c-message {{#if isContinuation}}c-continuation-message{{/if}}">
+        {{#unless isContinuation}}
+        <img class="c-message-avatar" src="/assets/avatars/{{#if owner.avatar}}{{owner.avatar}}{{else}}default.jpg{{/if}}"/>
+        {{/unless}}
+        <div class="c-message-meta">
+            {{#unless isContinuation}}
+            <span class="c-message-name">
+                <span class="c-message-username">{{owner.username}}</span>
+                <span class="c-message-fullname">{{owner.fullname}}</span>
+            </span>
+            <time class="c-message-time" title="{{created}}"></time>
+            {{/unless}}
+            <div class="c-message-content">
+                <div class="c-message-text">
+                    {{text}}
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

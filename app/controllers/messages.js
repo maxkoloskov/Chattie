@@ -18,18 +18,17 @@ module.exports = function(opts) {
 
     /* Socket */
     io.on('connection', function(socket) {
-        socket.on('messages:create', function(cb) {
+        socket.on('messages:create', function(message, cb) {
             var options = {
-                owner: req.user._id,
-                room: req.param('room'),
-                text: req.param('text')
+                owner: socket.request.user.id,
+                channel: message.channel,
+                text: message.text
             };
 
-            core.messages.create(options, function(err, message) {
+            core.messages.create(options, function(err) {
                 if (err) {
-                    cb(false);
+                    console.error(err);
                 }
-                cb(true); // message created successful
             });
         });
 

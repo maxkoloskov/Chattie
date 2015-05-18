@@ -9,13 +9,13 @@
             this.template = Handlebars.compile($('#template-channel-tab').html());
             this.channels = options.channels;
 
-            //this.channels.on('change:joined', function (channel, joined) {
-            //    if (joined) {
-            //        this.add(channel.toJSON());
-            //        return;
-            //    }
-            //    this.remove(channel.id);
-            //}, this);
+            this.channels.on('change:joined', function (channel, joined) {
+                if (joined) {
+                    this.add(channel.toJSON());
+                    return;
+                }
+                this.remove(channel.id);
+            }, this);
 
             this.channels.on('change:displayName change:description', this.update, this);
 
@@ -33,19 +33,19 @@
             this.render();
         },
 
-        add: function (channel) {
+        add: function(channel) {
             this.$el.append(this.template(channel));
         },
 
-        remove: function (id) {
+        remove: function(id) {
             this.$el.find('.c-channel-tab[data-id=' + id + ']').remove();
         },
 
-        update: function (channel) {
+        update: function(channel) {
             this.$el.find('.c-channel-tab[data-id=' + channel.id + '] .c-channel-tab-title').text(channel.get('displayName'));
         },
 
-        switch: function (id) {
+        switch: function(id) {
             if (!id) {
                 return;
             }
@@ -53,28 +53,30 @@
                 .filter('[data-id=' + id + ']').addClass('active');
         },
 
-        alert: function (message) {
+        alert: function(message) {
             var $tab = this.$('.c-channel-tab[data-id=' + message.channel.id + ']'),
-                $alerts = $tab.find('c-channel-tab-alerts');
+                $alerts = $tab.find('.c-channel-tab-alerts');
 
-            if ($tab.length === 0 || ((this.rooms.current.get('id') === message.room.id) && this.focus)) {
+            if (message.historical || $tab.length === 0 || ((this.channels.current.get('id') === message.channel.id) && this.focus)) {
                 return;
             }
-            var alertsCnt = parseInt($tab.data('count-total')) || 0;
+
+            var alertsCnt = parseInt($tab.data('alerts-count')) || 0;
 
             $tab.data('alerts-count', ++alertsCnt);
-            $alerts.text(alertsCnt);
+            $alerts.text(alertsCnt).css('display', 'block');
         },
 
-        clearAlerts: function (id) {
+        clearAlerts: function(id) {
             var $tab = this.$('.c-channel-tab[data-id=' + id + ']'),
-                $alerts = $tab.find('c-channel-tab-alerts');
+                $alerts = $tab.find('.c-channel-tab-alerts');
 
+
+            $alerts.text('').css('display', 'none');
             $tab.data('alerts-count', 0);
-            $alerts.text('');
         },
 
-        onFocusBlur: function (e) {
+        onFocusBlur: function(e) {
             var self = this;
             this.focus = (e.type === 'focus');
             clearTimeout(this.clearTimer);

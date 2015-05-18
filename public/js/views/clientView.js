@@ -6,31 +6,21 @@
         initialize: function(options) {
             this.client = options.client;
 
-            /* Subviews */
+            /* SUBVIEWS */
 
-            // messages
-            //this.chat = new w.Chattie.ChatView({
-            //    el: this.$el.find('#c-messages-container'),
-            //    client: this.client
-            //});
+            /* ChannelsBrowser */
+            this.channelsBrowser = new w.Chattie.ChannelsBrowserView({
+                el: this.$el.find('#c-channels-browser'),
+                client: this.client,
+                channels: this.client.channels
+            });
 
+
+            /* Sidebar */
             //channels tabs
             this.tabs = new w.Chattie.TabsView({
                 el: this.$el.find('#c-channels-list'),
                 channels: this.client.channels,
-                client: this.client
-            });
-
-            // channel info view
-            this.channel = new w.Chattie.ChannelHeaderView({
-                el: this.$el.find('#c-channel-header'),
-                channels: this.client.channels,
-                client: this.client
-            });
-
-            // input
-            this.input = new w.Chattie.InputView({
-                el: this.$el.find('#c-msg-input-container'),
                 client: this.client
             });
 

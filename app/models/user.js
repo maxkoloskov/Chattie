@@ -9,7 +9,7 @@ var UserSchema = new mongoose.Schema({
         trim: true,
         lowercase: true,
         unique: true,
-        match: /^[^\.][a-z0-9_\.]+[^\.]$/i
+        match: /^[^\._0-9][a-z0-9_\.]+[^\.]$/i
     },
     hashedPassword: {
         type: String,
@@ -18,6 +18,14 @@ var UserSchema = new mongoose.Schema({
     salt: {
         type: String,
         required: true
+    },
+    fullname: {
+        type: String,
+        default: ''
+    },
+    avatar: {
+        type: String,
+        default: 'default.jpg'
     },
     created: {
         type: Date,
@@ -67,6 +75,8 @@ UserSchema.method('toJSON', function() {
     return {
         id: this._id,
         username: this.username,
+        fullname: this.fullname,
+        avatar: this.avatar,
         created: this.created
     };
 });

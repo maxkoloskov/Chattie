@@ -1,0 +1,28 @@
+<script type="text/x-handlebars-template" id="template-channel">
+    <div class="c-channel" data-id="{{id}}" style="display: none;">
+        <div class="c-header">
+            <div id="c-channel-header" class="c-channel-header">
+                <span class="c-channel-title">{{displayName}}</span>
+                <span class="c-channel-topic">{{description}}</span>
+            </div>
+        </div>
+        <div class="c-footer">
+            <div class="c-msg-footer">
+                <div id="c-msg-input-container" class="c-msg-input-container">
+                    <form class="c-msg-form">
+                        <textarea class="c-msg-input" autofocus="" maxlength="" autocorrect="off" autocomplete="off"
+                                  name="" id="c-msg-input" cols="30" rows="10"></textarea>
+                    </form>
+                </div>
+            </div>
+            <div class="c-notification-bar">
+                <div class="c-notification-text">
+                    Для отправки сообщения, нажмите клавишу <strong>Enter</strong>
+                </div>
+            </div>
+        </div>
+        <div class="c-body">
+            <div id="c-messages-container" class="c-messages-container"></div>
+        </div>
+    </div>
+</script>

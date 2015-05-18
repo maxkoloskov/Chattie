@@ -79,17 +79,17 @@ MessageManager.prototype.list = function(options, cb) {
         find = find.find({$text: {$search: options.query}});
     }
 
-    //if (options.expand) {
-    //    var includes = options.expand.replace(/\s/, '').split(',');
-    //
-    //    if (_.includes(includes, 'owner')) {
-    //        find.populate('owner', 'id username displayName email avatar');
-    //    }
-    //
-    //    if (_.includes(includes, 'channel')) {
-    //        find.populate('channel', 'id name');
-    //    }
-    //}
+    if (options.expand) {
+        var includes = options.expand.replace(/\s/, '').split(',');
+
+        if (_.includes(includes, 'owner')) {
+            find.populate('owner', 'id username fullname avatar');
+        }
+
+        if (_.includes(includes, 'channel')) {
+            find.populate('channel', 'id name displayName');
+        }
+    }
 
     if (options.skip) {
         find.skip(options.skip);

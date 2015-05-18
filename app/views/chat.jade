@@ -12,6 +12,7 @@ block js
   script(src="/js/vendor/underscore.js")
   script(src="/js/vendor/handlebars.js")
   script(src="/js/vendor/backbone.js")
+  script(src="/js/vendor/moment/min/moment-with-locales.js")
 
   script(src="/js/models/user.js")
   script(src="/js/models/message.js")
@@ -19,8 +20,8 @@ block js
 
   script(src="/js/views/connectionIndicators.js")
   script(src="/js/views/tabs.js")
-  script(src="/js/views/channelHeader.js")
-  script(src="/js/views/input.js")
+  script(src="/js/views/channel.js")
+  script(src="/js/views/channelsBrowser.js")
   script(src="/js/views/clientView.js")
 
   script(src="/js/client.js")
@@ -28,13 +29,15 @@ block js
 
 block templates
   include ./templates/tab.html
+  include ./templates/channel.html
+  include ./templates/message.html
 
 block content
   div#c-client-ui.c-client-ui
     div.c-sidebar
-      div.c-account-menu
-        img.c-account-avatar(src="http://i.imgur.com/ZVH9xPNt.jpg")
-        //span.c-account-displayname Firstname Lastname
+      div.c-account-panel
+        img.c-account-avatar(src="/assets/avatars/#{user.avatar}")
+        //span.c-account-fullname Firstname Lastname
         span.c-account-username= user.username
         div#c-connection-indicators
           div.c-connection-indicator(data-status="online" style="display: node;")
@@ -43,57 +46,33 @@ block content
           div.c-connection-indicator(data-status="offline" style="display: none;")
             img.c-connection-icon(src="/img/indicator_offline.png")
             span.c-connection-status offline
+        span.c-dropmenu-icon.glyphicon.glyphicon-chevron-down
       div.c-navigation
-        div.c-channels
-          div.c-channels-list-header
-            span.c-channels-list-header-name Диалоги
+        div.c-channels-navigation
+          span.c-channels-list-header Диалоги
+          span#c-channel-add.c-channels-add.glyphicon.glyphicon-plus
+          div.clearfix
           ul#c-channels-list.c-channels-list
-            li.c-channel-tab
-              a
-                span.c-channel-tab-title Общий
-                span.c-channel-tab-alerts 10
-            li.c-channel-tab.active
-              a
-                span.c-channel-tab-title IT-отдел
-                span.c-channel-tab-alerts 1337
-            li.c-channel-tab
-              a(href="#!/channel/554f8a74704179e129faf89b")
-                span.c-channel-tab-title Менеджмент
-                span.c-channel-tab-alerts 2
 
-    div.c-channel-browser
-      div.c-header
-        div#c-channel-header.c-channel-header
-          span.c-channel-title IT-отдел
-          span.c-channel-topic Здесь ведут обсуждения все члены it-отдела организации
+    div#c-channels-browser.c-channels-browser
+      div#c-background.c-background
+        div.c-advice
+          | Выберете диалог для начала общения
 
-      div.c-footer
-        div.c-msg-footer
-          div#c-msg-input-container.c-msg-input-container
-            form.c-msg-form
-              textarea#c-msg-input.c-msg-input(autofocus maxlength autocorrect='off' autocomplete='off')
-        div.c-notification-bar
-          div.c-notification-text
-            | Для отправки сообщения, нажмите клавишу
-            strong  Enter
-
-      div.c-body
-        div#c-messages-container.c-messages-container
-          div.c-message
-            img.c-message-avatar(src="http://i.imgur.com/ZVH9xPNt.jpg")
-            div.c-message-meta
-              span.c-massage-name
-                span.c-message-username ivanpupkin
-                span.c-message-displayname Иван Пупкин
-              time.c-message-time 7 мая 21:54
-              div.c-message-content
-                div.c-message-text Это первое сообщение в этом диалоге
-          div.c-message
-            img.c-message-avatar(src="https://pp.vk.me/c322625/v322625268/53ab/JKUENrdA-KY.jpg")
-            div.c-message-meta
-              span.c-massage-name
-                span.c-message-username gomy
-                span.c-message-displayname Гомер Симпсон
-              time.c-message-time 7 мая 21:54
-              div.c-message-content
-                div.c-message-text ок
+      div#c-channels.c-channels
+        div.c-channel
+          div.c-header
+            div.c-channel-header
+              span.c-channel-title
+              span.c-channel-topic
+          div.c-footer
+            div.c-msg-footer
+              div.c-msg-input-container
+                form.c-msg-form
+                  textarea.c-msg-input(autofocus maxlength autocorrect='off' autocomplete='off')
+            div.c-notification-bar
+              div.c-notification-text
+                | Для отправки сообщения, нажмите клавишу
+                strong  Enter
+          div.c-body
+            div.c-messages-container

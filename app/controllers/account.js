@@ -5,6 +5,7 @@ module.exports = function(opts) {
     var app = opts.app;
     var io = opts.io;
 
+    /* Routes */
     app.get('/', requireAuth, function(req, res) {
         res.render('chat', {
             user: req.user
@@ -30,8 +31,7 @@ module.exports = function(opts) {
     });
 
     /* Sockets */
-    io.on('connection', function (socket) {
-
+    io.on('connection', function(socket) {
         socket.on('account:get', function(cb) {
             cb(socket.request.user);
         });

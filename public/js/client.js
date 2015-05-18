@@ -1,7 +1,6 @@
 (function(w, $, _) {
     w.Chattie = w.Chattie || {};
 
-    // Client
     var Client = function(options) {
         this.options = options;
         this.status = new Backbone.Model();
@@ -12,15 +11,40 @@
         return this;
     };
 
+    /* Messages */
     Client.prototype.addMessage = function (message) {
-
-    };
-
-    Client.prototype.sendMessage = function (message) {
-        //this.io.emit('messages:create', message);
         console.log(message);
+        var channel = this.channels.get(message.channel);
+        if (!channel || !message) {
+            return;
+        }
+        channel.set('lastActive', message.created);
+
+        channel.lastMessage.set(message);
+
+        channel.trigger('messages:new', message);
     };
 
+    Client.prototype.addMessages = function (messages, historical) {
+        var self = this;
+
+        _.each(messages, function(message) {
+            if (historical) {
+                message.historical = true;
+            }
+            self.addMessage(message);
+        });
+    };
+
+    Client.prototype.sendMessage = function(message) {
+        this.io.emit('messages:create', message);
+    };
+
+    Client.prototype.getMessages = function(query, callback) {
+        this.io.emit('messages:list', query, callback);
+    };
+
+    /* Account */
     Client.prototype.getUser = function() {
         var self = this;
         this.io.emit('account:get', function(user) {
@@ -28,6 +52,7 @@
         });
     };
 
+    /* Channels */
     Client.prototype.setChannelMembers = function(channelId, members) {
         if (!channelId || !members || !members.length) {
             return;
@@ -42,10 +67,8 @@
     Client.prototype.getChannels = function(cb) {
         var self = this;
         this.io.emit('channels:list', { users: true }, function(channels) {
-            console.log(channels);
-            self.channels.set(channels);
 
-            //console.log(self.channels.get('554f8a74704179e129faf89b').get('description'));
+            self.channels.set(channels);
 
             _.each(channels, function(channel) {
                 if (channel.users) {
@@ -61,25 +84,89 @@
     };
 
     Client.prototype.switchChannel = function(id) {
-        //console.log('channel switched to ' + id);
-        //return;
+        console.log('channel switched to ' + id);
+
         this.channels.last.set('id', this.channels.current.get('id'));
         if (!id) {
-            this.router.navigate('!/', {
-                replace: true
-            });
+            //this.router.navigate('!/', {
+            //    replace: true
+            //});
             return;
         }
         var channel = this.channels.get(id);
-        if (channel) {
+        if (channel && channel.get('joined')) {
             this.channels.current.set('id', id);
             this.router.navigate('!/channel/' + channel.id, {
                 replace: true
             });
             return;
         } else {
-            //this.joinRoom(id, true);
-            console.log('sdg');
+            this.joinChannel(id, true);
+        }
+    };
+
+    Client.prototype.addOrGetChannel = function(channel) {
+        var c = this.channels.get(channel.id);
+        if (c) {
+            return c;
+        }
+        this.channels.add(channel);
+    };
+
+    Client.prototype.joinChannel = function(id, switchToThisChannel, rejoin) {
+        var self = this;
+
+        if (!id) {
+            return;
+        }
+
+        if (!rejoin) {
+            var channel = self.channels.get(id);
+            if (channel && channel.get('joined')) {
+                return;
+            }
+        }
+
+        self.io.emit('channels:join', id, function(returnedChannel) {
+            if (!returnedChannel) {
+                return;
+            }
+
+            var channel = self.addOrGetChannel(returnedChannel);
+            channel.set('joined', true);
+
+            self.getMessages({
+                channel: channel.id,
+                since_id: channel.lastMessage.get('id'),
+                take: 50,
+                expand: 'owner, channel',
+                reverse: true
+            }, function(messages) {
+
+                messages.reverse();
+                self.addMessages(messages, !channel.get('loaded'));
+                channel.set('loaded', true);
+            });
+
+            if (switchToThisChannel) {
+                self.switchChannel(id);
+            }
+
+        });
+    };
+
+    Client.prototype.leaveChannel = function(id) {
+        var channel = this.channels.get(id);
+        if (channel) {
+            channel.set('joined', false);
+            channel.lastMessage.clear();
+        }
+
+        this.io.emit('channels:leave', id);
+
+        if (id === this.channels.current.get('id')) {
+            var channel = this.channels.get(this.channels.last.get('id'));
+            this.switchChannel(channel && channel.get('joined') ? channel.id : '');
         }
     };
 
@@ -99,11 +186,24 @@
 
     Client.prototype.listen = function() {
         var self = this;
+
+        // helper
+        function joinChannels(channels) {
+
+            var channelsIds = _.map(channels, function(channel) {
+                return channel.id;
+            });
+
+            _.each(channelsIds, function(channelId) {
+                self.joinChannel(channelId);
+            });
+        }
+
+        /* Socket */
         var path = '/' + _.compact(
             w.location.pathname.split('/').concat(['socket.io'])
         ).join('/');
 
-        /* Socket */
         this.io = io.connect({
             path: path,
             reconnection: true,
@@ -115,7 +215,7 @@
         this.io.on('connect', function() {
             console.log('connected...');
             self.getUser();
-            self.getChannels();
+            self.getChannels(joinChannels);
             self.status.set('connected', true);
         });
 
@@ -131,6 +231,7 @@
         /* GUI */
         this.events.on('messages:send', this.sendMessage, this);
         this.events.on('channels:switch', this.switchChannel, this);
+        this.events.on('channels:leave', this.leaveChannel, this);
     };
 
     Client.prototype.start = function() {

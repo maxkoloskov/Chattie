@@ -1,4 +1,4 @@
-.c-account-menu
+.c-account-panel
   height: $headerHeight
   padding: 5px 10px 5px
   background: #07163A
@@ -9,7 +9,7 @@
     width: 48px
     height: 48px
     border-radius: .2rem
-    opacity: 0.95
+    opacity: 0.85
     &:hover
       opacity: 1
   .c-account-username
@@ -31,12 +31,31 @@
     margin-left: .7rem
     font-size: .95rem
     color: #aaa
+  .c-dropmenu-icon
+    position: absolute
+    top: 1.5rem
+    right 1rem
+    color: #888
+    font-size: 1rem
+    &:before
+      content: "\e114";
+    &:hover
+      color: #fff
+      cursor: pointer
+  &:hover
+    cursor: pointer
+    .c-account-avatar
+      opacity: 1
+    .c-dropmenu-icon
+      color: #fff
+
 
 .c-navigation
   font-size: 16px
-  .c-channels
+.c-channels-navigation
     margin: 1rem 0 2rem
-    div.c-channels-list-header
+    .c-channels-list-header
+      float:left
       text-align: left
       font-size: 1rem
       line-height: 1.25rem
@@ -44,13 +63,20 @@
       text-transform: uppercase
       font-weight: 700
       color: #888
-      display: block
-      width: 180px
       &:hover
         color: #fff
         cursor: pointer
-      .c-channels-list-header-name
-        display: block
+    .c-channels-add
+      float: right
+      margin-right: 1rem
+      font-size: .9rem
+      line-height: 1rem
+      color: #888
+      display: block
+      width: 1rem
+      &:hover
+        color: #fff
+        cursor: pointer
     ul.c-channels-list
       list-style-type: none
       text-align: left

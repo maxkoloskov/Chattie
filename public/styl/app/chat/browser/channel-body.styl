@@ -1,0 +1,56 @@
+.c-messages-container
+  position: relative
+  padding: 0 22px
+  height: 100%
+  overflow: auto
+
+.c-message
+  min-height: 38px
+  position: relative
+  /*margin: .5rem 0*/
+  padding: .5rem 0
+  font-size: 14px
+  &:fist-child
+    border-top: none
+  &:hover .c-message-avatar
+    opacity: 1
+
+.c-system-message
+  font-style: italic
+  padding-top: 10px
+  color: #777
+  .c-message-meta
+    padding-left: 22px
+  .c-message-text:before
+    content: 'Системное сообщение: '
+
+.c-continuation-message
+  min-height: 0
+  margin-top: -0.5rem
+
+.c-message-avatar
+  display: block
+  float: left
+  width: 38px
+  height: 38px
+  border-radius: .2rem
+  opacity: 0.82
+
+.c-message-meta
+  padding-left: 44px
+
+.c-message-name
+  color: #666
+  margin-bottom: .3rem
+  font-weight: 700
+  display: block
+  .c-message-fullname
+    color: #aaa
+    font-weight: 400
+    margin-left: 0.1rem
+
+.c-message-time
+  position: absolute
+  right: 0
+  top: 0.5rem
+  color: #aaa

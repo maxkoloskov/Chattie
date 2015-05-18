@@ -7,12 +7,12 @@ block css
   link(rel='stylesheet' href='/css/style.css')
 
 block content
-  div.container
+  div.login-container
     div.row
-      div.col-sm-6.col-md-4.col-md-offset-4
-        h1.text-center.login-title Log in to chat
-        div.account-wall
-          form.form-login(method='post' action='./account/login')
-            input.form-group(name='username', class='form-control', type="text", placeholder='username')
-            input.form-group(name='password', class='form-control', type='password', placeholder='password')
-            button.btn.btn-lg.btn-primary.btn-block(type='submit') Log in
+      //div.col-sm-6.col-md-4.col-md-offset-4
+      div.account-wall
+        h1.text-center.login-title Вход в приложение
+        form.form-login(method='post' action='./account/login')
+          input.form-group(name='username', class='form-control', type="text", placeholder='Логин')
+          input.form-group(name='password', class='form-control', type='password', placeholder='Пароль')
+          button.btn.btn-primary.btn-block(type='submit') Войти
