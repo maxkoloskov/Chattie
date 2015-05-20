@@ -13,6 +13,7 @@ block js
   script(src="/js/vendor/handlebars.js")
   script(src="/js/vendor/backbone.js")
   script(src="/js/vendor/moment/min/moment-with-locales.js")
+  script(src="/js/vendor/bootstrap.min.js")
 
   script(src="/js/models/user.js")
   script(src="/js/models/message.js")
@@ -32,25 +33,35 @@ block templates
   include ./templates/channel.html
   include ./templates/message.html
 
+block modals
+  include ./modals/addChannel
+  include ./modals/editChannel
+
 block content
   div#c-client-ui.c-client-ui
     div.c-sidebar
-      div.c-account-panel
-        img.c-account-avatar(src="/assets/avatars/#{user.avatar}")
-        //span.c-account-fullname Firstname Lastname
-        span.c-account-username= user.username
-        div#c-connection-indicators
-          div.c-connection-indicator(data-status="online" style="display: node;")
-            img.c-connection-icon(src="/img/indicator_online.png")
-            span.c-connection-status online
-          div.c-connection-indicator(data-status="offline" style="display: none;")
-            img.c-connection-icon(src="/img/indicator_offline.png")
-            span.c-connection-status offline
-        span.c-dropmenu-icon.glyphicon.glyphicon-chevron-down
+      div.dropdown
+        div.c-account-panel
+          a.c-account-button.dropdown-toggle(data-toggle="dropdown")
+            img.c-account-avatar(src="/assets/avatars/#{user.avatar}")
+            span.c-account-username= user.username
+            div#c-connection-indicators
+              div.c-connection-indicator(data-status="online" style="display: node;")
+                img.c-connection-icon(src="/img/indicator_online.png")
+                span.c-connection-status online
+              div.c-connection-indicator(data-status="offline" style="display: none;")
+                img.c-connection-icon(src="/img/indicator_offline.png")
+                span.c-connection-status offline
+            span.c-dropmenu-icon.glyphicon.glyphicon-chevron-down
+          ul.dropdown-menu.dropdown-menu-right
+            li: a(href='/profile/#{user.username}' target='_blank') Профиль
+            li: a Настройки аккаунта
+            li.divider
+            li: a(href='/logout') Выйти
       div.c-navigation
         div.c-channels-navigation
           span.c-channels-list-header Диалоги
-          span#c-channel-add.c-channels-add.glyphicon.glyphicon-plus
+          span#c-channel-add.c-channels-add.glyphicon.glyphicon-plus(data-toggle='modal' data-target='#c-add-channel-modal')
           div.clearfix
           ul#c-channels-list.c-channels-list
 
@@ -58,21 +69,4 @@ block content
       div#c-background.c-background
         div.c-advice
           | Выберете диалог для начала общения
-
       div#c-channels.c-channels
-        div.c-channel
-          div.c-header
-            div.c-channel-header
-              span.c-channel-title
-              span.c-channel-topic
-          div.c-footer
-            div.c-msg-footer
-              div.c-msg-input-container
-                form.c-msg-form
-                  textarea.c-msg-input(autofocus maxlength autocorrect='off' autocomplete='off')
-            div.c-notification-bar
-              div.c-notification-text
-                | Для отправки сообщения, нажмите клавишу
-                strong  Enter
-          div.c-body
-            div.c-messages-container

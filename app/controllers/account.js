@@ -22,12 +22,16 @@ module.exports = function(opts) {
     });
 
     app.post('/account/login', function(req, res) {
-
+        // TODO: коллбэк в третьем параметре
         auth.authenticate(req, res);
     });
 
     app.get('/account', requireAuth, function(req, res) {
         res.json(req.user);
+    });
+
+    app.get('/profile/:username', requireAuth, function(req, res) {
+        res.end(req.params.username);
     });
 
     /* Sockets */

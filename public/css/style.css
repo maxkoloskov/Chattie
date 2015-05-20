@@ -6600,12 +6600,18 @@ body {
   background: #fffffe;
 }
 .c-account-panel {
+  position: relative;
+  display: block;
   height: 60px;
   padding: 5px 10px 5px;
   background: #07163a;
   border-bottom: 2px solid #020c22;
 }
-.c-account-panel .c-account-avatar {
+.c-account-panel a.c-account-button {
+  display: block;
+  text-decoration: none;
+}
+.c-account-panel a.c-account-button .c-account-avatar {
   float: left;
   margin: 0 0.5rem 0 0;
   width: 48px;
@@ -6613,10 +6619,10 @@ body {
   border-radius: 0.2rem;
   opacity: 0.85;
 }
-.c-account-panel .c-account-avatar:hover {
+.c-account-panel a.c-account-button .c-account-avatar:hover {
   opacity: 1;
 }
-.c-account-panel .c-account-username {
+.c-account-panel a.c-account-button .c-account-username {
   font-weight: 800;
   line-height: 1.5rem;
   max-width: 200px;
@@ -6626,48 +6632,49 @@ body {
   white-space: nowrap;
   color: #fff;
 }
-.c-account-panel .c-connection-icon {
+.c-account-panel a.c-account-button .c-connection-icon {
   position: absolute;
   top: 33px;
   left: 63px;
   width: 12px;
   height: 12px;
 }
-.c-account-panel .c-connection-status {
+.c-account-panel a.c-account-button .c-connection-status {
   margin-left: 0.7rem;
   font-size: 0.95rem;
   color: #aaa;
 }
-.c-account-panel .c-dropmenu-icon {
+.c-account-panel a.c-account-button .c-dropmenu-icon {
   position: absolute;
   top: 1.5rem;
   right: 1rem;
   color: #888;
   font-size: 1rem;
 }
-.c-account-panel .c-dropmenu-icon:before {
+.c-account-panel a.c-account-button .c-dropmenu-icon:before {
   content: "\e114";
 }
-.c-account-panel .c-dropmenu-icon:hover {
+.c-account-panel a.c-account-button .c-dropmenu-icon:hover {
   color: #fff;
   cursor: pointer;
 }
-.c-account-panel:hover {
+.c-account-panel a.c-account-button:hover {
   cursor: pointer;
 }
-.c-account-panel:hover .c-account-avatar {
+.c-account-panel a.c-account-button:hover .c-account-avatar {
   opacity: 1;
 }
-.c-account-panel:hover .c-dropmenu-icon {
+.c-account-panel a.c-account-button:hover .c-dropmenu-icon {
   color: #fff;
 }
 .c-navigation {
   font-size: 16px;
+  overflow-y: auto;
 }
-.c-channels-navigation {
+.c-navigation .c-channels-navigation {
   margin: 1rem 0 2rem;
 }
-.c-channels-navigation .c-channels-list-header {
+.c-navigation .c-channels-navigation .c-channels-list-header {
   float: left;
   text-align: left;
   font-size: 1rem;
@@ -6677,11 +6684,11 @@ body {
   font-weight: 700;
   color: #888;
 }
-.c-channels-navigation .c-channels-list-header:hover {
+.c-navigation .c-channels-navigation .c-channels-list-header:hover {
   color: #fff;
   cursor: pointer;
 }
-.c-channels-navigation .c-channels-add {
+.c-navigation .c-channels-navigation .c-channels-add {
   float: right;
   margin-right: 1rem;
   font-size: 0.9rem;
@@ -6690,11 +6697,11 @@ body {
   display: block;
   width: 1rem;
 }
-.c-channels-navigation .c-channels-add:hover {
+.c-navigation .c-channels-navigation .c-channels-add:hover {
   color: #fff;
   cursor: pointer;
 }
-.c-channels-navigation ul.c-channels-list {
+.c-navigation .c-channels-navigation ul.c-channels-list {
   list-style-type: none;
   text-align: left;
   width: 100%;
@@ -6702,7 +6709,7 @@ body {
   padding: 0;
   display: block;
 }
-.c-channels-navigation ul.c-channels-list li.c-channel-tab {
+.c-navigation .c-channels-navigation ul.c-channels-list li.c-channel-tab {
   margin-top: 1px;
   font-size: 1rem;
   line-height: 1.5rem;
@@ -6710,9 +6717,9 @@ body {
   position: relative;
   display: block;
 }
-.c-channels-navigation ul.c-channels-list li.c-channel-tab a,
-.c-channels-navigation ul.c-channels-list li.c-channel-tab a:link,
-.c-channels-navigation ul.c-channels-list li.c-channel-tab a:visited {
+.c-navigation .c-channels-navigation ul.c-channels-list li.c-channel-tab a,
+.c-navigation .c-channels-navigation ul.c-channels-list li.c-channel-tab a:link,
+.c-navigation .c-channels-navigation ul.c-channels-list li.c-channel-tab a:visited {
   color: #888;
   display: block;
   height: 1.5rem;
@@ -6721,24 +6728,24 @@ body {
   border-radius: 0.5rem 0 0 0.5rem;
   cursor: pointer;
 }
-.c-channels-navigation ul.c-channels-list li.c-channel-tab a:hover,
-.c-channels-navigation ul.c-channels-list li.c-channel-tab a:link:hover,
-.c-channels-navigation ul.c-channels-list li.c-channel-tab a:visited:hover {
+.c-navigation .c-channels-navigation ul.c-channels-list li.c-channel-tab a:hover,
+.c-navigation .c-channels-navigation ul.c-channels-list li.c-channel-tab a:link:hover,
+.c-navigation .c-channels-navigation ul.c-channels-list li.c-channel-tab a:visited:hover {
   background: #07163a;
   text-decoration: none;
 }
-.c-channels-navigation ul.c-channels-list li.c-channel-tab a .c-channel-tab-title,
-.c-channels-navigation ul.c-channels-list li.c-channel-tab a:link .c-channel-tab-title,
-.c-channels-navigation ul.c-channels-list li.c-channel-tab a:visited .c-channel-tab-title {
+.c-navigation .c-channels-navigation ul.c-channels-list li.c-channel-tab a .c-channel-tab-title,
+.c-navigation .c-channels-navigation ul.c-channels-list li.c-channel-tab a:link .c-channel-tab-title,
+.c-navigation .c-channels-navigation ul.c-channels-list li.c-channel-tab a:visited .c-channel-tab-title {
   width: 86%;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
   display: inline-block;
 }
-.c-channels-navigation ul.c-channels-list li.c-channel-tab a .c-channel-tab-alerts,
-.c-channels-navigation ul.c-channels-list li.c-channel-tab a:link .c-channel-tab-alerts,
-.c-channels-navigation ul.c-channels-list li.c-channel-tab a:visited .c-channel-tab-alerts {
+.c-navigation .c-channels-navigation ul.c-channels-list li.c-channel-tab a .c-channel-tab-alerts,
+.c-navigation .c-channels-navigation ul.c-channels-list li.c-channel-tab a:link .c-channel-tab-alerts,
+.c-navigation .c-channels-navigation ul.c-channels-list li.c-channel-tab a:visited .c-channel-tab-alerts {
   position: absolute;
   top: 3px;
   right: 1rem;
@@ -6751,7 +6758,7 @@ body {
   vertical-align: baseline;
   color: #fff;
 }
-.c-channels-navigation ul.c-channels-list li.c-channel-tab.active a {
+.c-navigation .c-channels-navigation ul.c-channels-list li.c-channel-tab.active a {
   background: #020c22;
   color: #fff;
 }
@@ -6820,8 +6827,9 @@ body {
 .c-channel-header {
   position: relative;
   height: 100%;
-  width: 100%;
+  max-width: 80%;
   margin: 8px 0 0;
+  float: left;
 }
 .c-channel-header .c-channel-title {
   font-weight: 600;
@@ -6843,8 +6851,22 @@ body {
   font-size: 0.9em;
   line-height: 1.6rem;
   margin-left: 21px;
-  max-width: 80%;
+/*max-width: 100%*/
   white-space: nowrap;
+}
+.c-channel-toolbar {
+  position: absolute;
+  top: 1.4rem;
+  right: 40px;
+}
+.c-channel-toolbar .c-channel-toolbar-item {
+  margin-left: 1rem;
+  color: #888;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+.c-channel-toolbar .c-channel-toolbar-item:hover {
+  color: #444;
 }
 .c-msg-input-container {
   position: absolute;

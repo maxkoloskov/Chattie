@@ -1,0 +1,19 @@
+// Edit channel modal
+#c-edit-channel-modal.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close(type='button' data-dismiss='modal' aria-label='Close')
+          span.glyphicon.glyphicon-remove
+        h4.modal-title Редактирование диалога
+      .modal-body
+        .form-group
+          label(for='c-channel-displayname') Отображаемое имя
+          input.c-channel-displayname-input(type='text' placeholder='Отображаемое имя').form-control
+        .form-group
+          label(for='c-channel-description') Описание
+          input.c-channel-description-input(type='text' placeholder='Описание').form-control
+      .modal-footer
+        button.btn.btn-default.btn-danger.left(type='button') Удалить диалог
+        button.btn.btn-default(type='button' data-dismiss='modal') Закрыть
+        button.btn.btn-primary(type='button') Сохранить

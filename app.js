@@ -22,7 +22,7 @@ var app = express();
 app.io = require('socket.io')();
 
 /* Logger */
-if (config.env !== 'prod') {
+if (config.env !== 'production') {
     app.use(logger('dev'));
 }
 
@@ -62,6 +62,11 @@ _.each(controllers, function(controller) {
         io: app.io,
         core: core
     });
+});
+
+/* 404 */
+app.use(function(req, res) {
+    res.render('404');
 });
 
 module.exports = app;

@@ -1,58 +1,64 @@
 .c-account-panel
+  position relative
+  display: block
   height: $headerHeight
   padding: 5px 10px 5px
   background: #07163A
   border-bottom: 2px solid #020C22
-  .c-account-avatar
-    float: left
-    margin: 0 .5rem 0 0
-    width: 48px
-    height: 48px
-    border-radius: .2rem
-    opacity: 0.85
-    &:hover
-      opacity: 1
-  .c-account-username
-    font-weight: 800
-    line-height: 1.5rem
-    max-width: $sidebarWidth - 40px
+  a.c-account-button
     display: block
-    text-overflow: ellipsis
-    overflow: hidden
-    white-space: nowrap
-    color: #fff
-  .c-connection-icon
-    position: absolute
-    top: 33px
-    left: 63px
-    width: 12px
-    height: 12px
-  .c-connection-status
-    margin-left: .7rem
-    font-size: .95rem
-    color: #aaa
-  .c-dropmenu-icon
-    position: absolute
-    top: 1.5rem
-    right 1rem
-    color: #888
-    font-size: 1rem
-    &:before
-      content: "\e114";
-    &:hover
-      color: #fff
-      cursor: pointer
-  &:hover
-    cursor: pointer
+    text-decoration: none
     .c-account-avatar
-      opacity: 1
-    .c-dropmenu-icon
+      float: left
+      margin: 0 .5rem 0 0
+      width: 48px
+      height: 48px
+      border-radius: .2rem
+      opacity: 0.85
+      &:hover
+        opacity: 1
+    .c-account-username
+      font-weight: 800
+      line-height: 1.5rem
+      max-width: $sidebarWidth - 40px
+      display: block
+      text-overflow: ellipsis
+      overflow: hidden
+      white-space: nowrap
       color: #fff
+    .c-connection-icon
+      position: absolute
+      top: 33px
+      left: 63px
+      width: 12px
+      height: 12px
+    .c-connection-status
+      margin-left: .7rem
+      font-size: .95rem
+      color: #aaa
+    .c-dropmenu-icon
+      position: absolute
+      top: 1.5rem
+      right 1rem
+      color: #888
+      font-size: 1rem
+      &:before
+        content: "\e114";
+      &:hover
+        color: #fff
+        cursor: pointer
+    &:hover
+      cursor: pointer
+      .c-account-avatar
+        opacity: 1
+      .c-dropmenu-icon
+        color: #fff
 
 
 .c-navigation
   font-size: 16px
-.c-channels-navigation
+  overflow-y: auto
+  .c-channels-navigation
     margin: 1rem 0 2rem
     .c-channels-list-header
       float:left

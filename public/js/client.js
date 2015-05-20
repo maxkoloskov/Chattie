@@ -13,7 +13,6 @@
 
     /* Messages */
     Client.prototype.addMessage = function (message) {
-        console.log(message);
         var channel = this.channels.get(message.channel);
         if (!channel || !message) {
             return;
@@ -177,6 +176,12 @@
                 '!/channel/:id': 'switch'
             },
             switch: function(id) {
+                if (!self.channels.get(id)) {
+                    self.router.navigate('!/', {
+                        replace: true
+                    });
+                    return;
+                }
                 self.switchChannel(id);
             }
         });

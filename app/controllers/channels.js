@@ -14,10 +14,10 @@ module.exports = function(opts) {
     app.route('/channels')
         .all(requireAuth);
         //.get(function(req, res) {
-        //    ('channels:list');
-        //})
+        //    res.end('channels:list');
+        //});
         //.post(function(req, res) {
-        //    ('channels:create');
+        //     res.end('channels:create');
         //});
 
 

@@ -17,8 +17,8 @@ var ChannelSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        trim: true,
-        required: true
+        trim: true
+        //required: true
     },
     owner: {
         type: ObjectId,

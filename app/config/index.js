@@ -1,7 +1,7 @@
 var env = process.env;
 
 module.exports = {
-    env: env.NODE_ENV || 'dev', // dev, prod, test
+    env: env.NODE_ENV || 'dev', // dev, production, test
 
     server: {
         port: env.PORT || 3000,

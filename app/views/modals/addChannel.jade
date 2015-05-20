@@ -1,0 +1,25 @@
+// Add channel modal
+#c-add-channel-modal.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close(type='button' data-dismiss='modal' aria-label='Close')
+          span.glyphicon.glyphicon-remove
+        h4.modal-title Создание диалога
+      .modal-body
+        .form-group
+          label(for='c-channel-name') Уникальное имя
+          .input-group
+            span.input-group-addon #
+            input.c-channel-name-input(type='text' placeholder='Уникальное имя').form-control
+          h6.text-info Уникальное имя должно быть в нижнем регистре и не должно содержать пробелов или дефисов
+        .form-group
+          label(for='c-channel-displayname') Отображаемое имя
+          input.c-channel-displayname-input(type='text' placeholder='Отображаемое имя').form-control
+        .form-group
+          label(for='c-channel-description') Описание (не обязательно)
+          input.c-channel-description-input(type='text' placeholder='Описание').form-control
+      .modal-footer
+        button.btn.btn-default(type='button' data-dismiss='modal') Закрыть
+        button.btn.btn-primary(type='button') Сохранить
+
