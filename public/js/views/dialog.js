@@ -1,12 +1,12 @@
 (function(w, $, _) {
     w.Chattie = w.Chattie || {};
 
-    w.Chattie.ChannelView = Backbone.View.extend({
+    w.Chattie.DialogView = Backbone.View.extend({
         events: {
             'keypress .c-msg-input': 'sendMessage',
-            'click .c-channel-edit': 'showEditChannel',
-            'click .c-save-edit-channel': 'saveEditChannel',
-            'click .c-archive-channel': 'archiveChannel'
+            'click .c-dialog-edit': 'showEditDialog',
+            'click .c-save-edit-dialog': 'saveEditDialog',
+            'click .c-archive-dialog': 'archiveDialog'
         },
 
         initialize: function(options) {
@@ -70,26 +70,26 @@
             var $input = this.$('.c-msg-input');
             if (!$input.val().trim()) return;
             this.client.events.trigger('messages:send', {
-                channel: this.model.id,
+                dialog: this.model.id,
                 text: $input.val().trim()
             });
             $input.val('');
         },
 
-        /* Channel*/
+        /* Dialog*/
         updateInfo: function() {
-            this.$('.c-channel-header .c-channel-title').text(this.model.get('displayName'));
-            this.$('.c-channel-header .c-channel-topic').text(this.model.get('description'));
-            //this.$('.c-channel-header .name').text('#' + this.model.get('name'));
+            this.$('.c-dialog-header .c-dialog-title').text(this.model.get('displayName'));
+            this.$('.c-dialog-header .c-dialog-topic').text(this.model.get('description'));
+            //this.$('.c-dialog-header .name').text('#' + this.model.get('name'));
         },
 
-        showEditChannel: function() {
-            this.$('.c-edit-channel-modal').modal();
+        showEditDialog: function() {
+            this.$('.c-edit-dialog-modal').modal();
         },
 
-        saveEditChannel: function() {
-            var $displayName = this.$('.c-edit-channel-modal input.c-channel-displayname-input');
-            var $description = this.$('.c-edit-channel-modal input.c-channel-description-input');
+        saveEditDialog: function() {
+            var $displayName = this.$('.c-edit-dialog-modal input.c-dialog-displayname-input');
+            var $description = this.$('.c-edit-dialog-modal input.c-dialog-description-input');
 
             if (!$displayName.val().trim()) {
                 $displayName.parent().addClass('has-error');
@@ -98,19 +98,19 @@
 
             $displayName.parent().removeClass('has-error');
 
-            this.client.events.trigger('channels:update', {
+            this.client.events.trigger('dialogs:update', {
                 id: this.model.id,
                 displayName: $displayName.val().trim(),
                 description: $description.val().trim()
             });
 
-            this.$('.c-edit-channel-modal').modal('hide');
+            this.$('.c-edit-dialog-modal').modal('hide');
         },
 
-        archiveChannel: function() {
+        archiveDialog: function() {
             // TODO: запросить подтверждение
-            this.$('.c-edit-channel-modal').modal('hide');
-            this.client.events.trigger('channels:archive', this.model.id);
+            this.$('.c-edit-dialog-modal').modal('hide');
+            this.client.events.trigger('dialogs:archive', this.model.id);
         }
 
     });

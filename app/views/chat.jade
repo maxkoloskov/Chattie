@@ -17,13 +17,13 @@ block js
 
   script(src="/js/models/user.js")
   script(src="/js/models/message.js")
-  script(src="/js/models/channel.js")
+  script(src="/js/models/dialog.js")
 
   script(src="/js/views/connectionIndicators.js")
   script(src="/js/views/tabs.js")
   script(src="/js/views/sidebar.js")
-  script(src="/js/views/channel.js")
-  script(src="/js/views/channelsBrowser.js")
+  script(src="/js/views/dialog.js")
+  script(src="/js/views/dialogsBrowser.js")
   script(src="/js/views/clientView.js")
 
   script(src="/js/client.js")
@@ -31,17 +31,17 @@ block js
 
 block templates
   include ./templates/tab.html
-  include ./templates/channel.html
+  include ./templates/dialog.html
   include ./templates/message.html
 
 block modals
-  include ./modals/editChannel
+  include ./modals/editDialog
 
 block content
   div#c-client-ui.c-client-ui
 
     div#c-sidebar.c-sidebar
-      include ./modals/addChannel
+      include ./modals/addDialog
       div.dropdown
         div.c-account-panel
           a.c-account-button.dropdown-toggle(data-toggle="dropdown")
@@ -60,15 +60,15 @@ block content
             li.divider
             li: a(href='/logout') Выйти
       div.c-navigation
-        div.c-channels-navigation
-          span.c-channels-list-header Диалоги
-          span#c-channel-add.c-channels-add.glyphicon.glyphicon-plus(data-toggle='modal' data-target='#c-add-channel-modal')
+        div.c-dialogs-navigation
+          span.c-dialogs-list-header Диалоги
+          span#c-dialog-add.c-dialogs-add.glyphicon.glyphicon-plus(data-toggle='modal' data-target='#c-add-dialog-modal')
           div.clearfix
-          ul#c-channels-list.c-channels-list
+          ul#c-dialogs-list.c-dialogs-list
 
 
-    div#c-channels-browser.c-channels-browser
+    div#c-dialogs-browser.c-dialogs-browser
       div#c-background.c-background
         div.c-advice
           | Выберете диалог для начала общения
-      div#c-channels.c-channels
+      div#c-dialogs.c-dialogs

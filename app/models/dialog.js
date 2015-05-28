@@ -1,7 +1,7 @@
 var mongoose = require('../lib/mongoose'),
     ObjectId = mongoose.Schema.Types.ObjectId;
 
-var ChannelSchema = new mongoose.Schema({
+var DialogSchema = new mongoose.Schema({
     name: {
         type: String,
         trim: true,
@@ -42,7 +42,7 @@ var ChannelSchema = new mongoose.Schema({
     }
 });
 
-ChannelSchema.method('toJSON', function() {
+DialogSchema.method('toJSON', function() {
     return {
         id: this._id,
         name: this.name,
@@ -54,4 +54,4 @@ ChannelSchema.method('toJSON', function() {
     };
 });
 
-module.exports = mongoose.model('Channel', ChannelSchema);
+module.exports = mongoose.model('Dialog', DialogSchema);

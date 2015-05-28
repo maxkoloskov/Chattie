@@ -6,22 +6,22 @@
         this.status = new Backbone.Model();
         this.user = new w.Chattie.UserModel();
         //this.users = new UsersCollection();
-        this.channels = new w.Chattie.ChannelsCollection();
+        this.dialogs = new w.Chattie.DialogsCollection();
         this.events = _.extend({}, Backbone.Events);
         return this;
     };
 
     /* Messages */
     Client.prototype.addMessage = function (message) {
-        var channel = this.channels.get(message.channel);
-        if (!channel || !message) {
+        var dialog = this.dialogs.get(message.dialog);
+        if (!dialog || !message) {
             return;
         }
-        channel.set('lastActive', message.created);
+        dialog.set('lastActive', message.created);
 
-        channel.lastMessage.set(message);
+        dialog.lastMessage.set(message);
 
-        channel.trigger('messages:new', message);
+        dialog.trigger('messages:new', message);
     };
 
     Client.prototype.addMessages = function (messages, historical) {
@@ -51,69 +51,69 @@
         });
     };
 
-    /* Channels */
-    Client.prototype.setChannelMembers = function(channelId, members) {
-        if (!channelId || !members || !members.length) {
+    /* Dialogs */
+    Client.prototype.setDialogMembers = function(dialogId, members) {
+        if (!dialogId || !members || !members.length) {
             return;
         }
-        var channel = this.channels.get(channelId);
-        if (!channel) {
+        var dialog = this.dialogs.get(dialogId);
+        if (!dialog) {
             return;
         }
-        channel.members.set(members);
+        dialog.members.set(members);
     };
 
-    Client.prototype.getChannels = function(cb) {
+    Client.prototype.getDialogs = function(cb) {
         var self = this;
-        this.io.emit('channels:list', { users: true }, function(channels) {
+        this.io.emit('dialogs:list', { users: true }, function(dialogs) {
 
-            self.channels.set(channels);
+            self.dialogs.set(dialogs);
 
-            _.each(channels, function(channel) {
-                if (channel.users) {
-                    self.setChannelMembers(channel.id, channel.users);
+            _.each(dialogs, function(dialog) {
+                if (dialog.users) {
+                    self.setDialogMembers(dialog.id, dialog.users);
                 }
             });
 
             if (cb) {
-                cb(channels);
+                cb(dialogs);
             }
 
         });
     };
 
-    Client.prototype.switchChannel = function(id) {
-        console.log('channel switched to ' + id);
+    Client.prototype.switchDialog = function(id) {
+        console.log('dialog switched to ' + id);
 
-        this.channels.last.set('id', this.channels.current.get('id'));
+        this.dialogs.last.set('id', this.dialogs.current.get('id'));
         if (!id || id === 'bg') {
-            this.channels.current.set('id', 'bg');
+            this.dialogs.current.set('id', 'bg');
             this.router.navigate('!/', {
                 replace: true
             });
             return;
         }
-        var channel = this.channels.get(id);
-        if (channel && channel.get('joined')) {
-            this.channels.current.set('id', id);
-            this.router.navigate('!/channel/' + channel.id, {
+        var dialog = this.dialogs.get(id);
+        if (dialog && dialog.get('joined')) {
+            this.dialogs.current.set('id', id);
+            this.router.navigate('!/dialog/' + dialog.id, {
                 replace: true
             });
             return;
         } else {
-            this.joinChannel(id, true);
+            this.joinDialog(id, true);
         }
     };
 
-    Client.prototype.addOrGetChannel = function(channel) {
-        var c = this.channels.get(channel.id);
+    Client.prototype.addOrGetDialog = function(dialog) {
+        var c = this.dialogs.get(dialog.id);
         if (c) {
             return c;
         }
-        this.channels.add(channel);
+        this.dialogs.add(dialog);
     };
 
-    Client.prototype.joinChannel = function(id, switchToThisChannel, rejoin) {
+    Client.prototype.joinDialog = function(id, switchToThisDialog, rejoin) {
         var self = this;
 
         if (!id) {
@@ -121,101 +121,101 @@
         }
 
         if (!rejoin) {
-            var channel = self.channels.get(id);
-            if (channel && channel.get('joined')) {
+            var dialog = self.dialogs.get(id);
+            if (dialog && dialog.get('joined')) {
                 return;
             }
         }
 
-        self.io.emit('channels:join', id, function(returnedChannel) {
-            if (!returnedChannel) {
+        self.io.emit('dialogs:join', id, function(returnedDialog) {
+            if (!returnedDialog) {
                 return;
             }
 
-            var channel = self.addOrGetChannel(returnedChannel);
-            channel.set('joined', true);
+            var dialog = self.addOrGetDialog(returnedDialog);
+            dialog.set('joined', true);
 
             self.getMessages({
-                channel: channel.id,
-                since_id: channel.lastMessage.get('id'),
+                dialog: dialog.id,
+                since_id: dialog.lastMessage.get('id'),
                 take: 50,
-                expand: 'owner, channel',
+                expand: 'owner, dialog',
                 reverse: true
             }, function(messages) {
 
                 messages.reverse();
-                self.addMessages(messages, !channel.get('loaded'));
-                channel.set('loaded', true);
+                self.addMessages(messages, !dialog.get('loaded'));
+                dialog.set('loaded', true);
             });
 
-            if (switchToThisChannel) {
-                self.switchChannel(id);
+            if (switchToThisDialog) {
+                self.switchDialog(id);
             }
 
         });
     };
 
-    Client.prototype.leaveChannel = function(id) {
-        var channel = this.channels.get(id);
-        if (channel) {
-            channel.set('joined', false);
-            channel.lastMessage.clear();
+    Client.prototype.leaveDialog = function(id) {
+        var dialog = this.dialogs.get(id);
+        if (dialog) {
+            dialog.set('joined', false);
+            dialog.lastMessage.clear();
         }
 
-        this.io.emit('channels:leave', id);
+        this.io.emit('dialogs:leave', id);
 
-        if (id === this.channels.current.get('id')) {
-            var channel = this.channels.get(this.channels.last.get('id'));
-            this.switchChannel(channel && channel.get('joined') ? channel.id : 'bg');
+        if (id === this.dialogs.current.get('id')) {
+            var dialog = this.dialogs.get(this.dialogs.last.get('id'));
+            this.switchDialog(dialog && dialog.get('joined') ? dialog.id : 'bg');
         }
     };
 
-    Client.prototype.updateChannel = function(channel) {
-        this.io.emit('channels:update', channel);
+    Client.prototype.updateDialog = function(dialog) {
+        this.io.emit('dialogs:update', dialog);
     };
 
-    Client.prototype.channelUpdated = function(updatedChannel) {
-        var channel = this.channels.get(updatedChannel.id);
-        if (!channel) {
+    Client.prototype.dialogUpdated = function(updatedDialog) {
+        var dialog = this.dialogs.get(updatedDialog.id);
+        if (!dialog) {
             return;
         }
-        channel.set(updatedChannel);
+        dialog.set(updatedDialog);
     };
 
-    Client.prototype.createChannel = function(options) {
+    Client.prototype.createDialog = function(options) {
         var self = this;
-        var channel = {
+        var dialog = {
             name: options.name,
             displayName: options.displayName,
             description: options.description
         };
         var callback = options.callback;
-        self.io.emit('channels:create', channel, function(channel) {
-            if (channel && channel.errors) {
+        self.io.emit('dialogs:create', dialog, function(dialog) {
+            if (dialog && dialog.errors) {
                 // TODO: информация об ошибке
                 console.log('Невозможно создать диалог :( Уникальное имя не уникально :)');
-            } else if (channel && channel.id) {
-                self.addOrGetChannel(channel);
-                self.joinChannel(channel.id, true);//self.switchChannel(channel.id);
+            } else if (dialog && dialog.id) {
+                self.addOrGetDialog(dialog);
+                self.joinDialog(dialog.id, true);//self.switchDialog(dialog.id);
             }
-            callback && callback(channel);
+            callback && callback(dialog);
         });
     };
 
-    Client.prototype.archiveChannel = function(channelId) {
-        //console.log('archive channel ' + channelId);
-        this.io.emit('channels:archive', channelId);
+    Client.prototype.archiveDialog = function(dialogId) {
+        //console.log('archive dialog ' + dialogId);
+        this.io.emit('dialogs:archive', dialogId);
     };
 
-    Client.prototype.channelArchived = function(channel) {
+    Client.prototype.dialogArchived = function(dialog) {
         var self =this;
         // TODO: this is KOSTYL' :)
         setTimeout(function() {
-            self.leaveChannel(channel.id);
-            self.channels.remove(channel.id);
+            self.leaveDialog(dialog.id);
+            self.dialogs.remove(dialog.id);
         }, 300);
-        //this.leaveChannel(channel.id);
-        //this.channels.remove(channel.id);
+        //this.leaveDialog(dialog.id);
+        //this.dialogs.remove(dialog.id);
     };
 
     /* Base */
@@ -223,16 +223,16 @@
         var self = this;
         var Router = Backbone.Router.extend({
             routes: {
-                '!/channel/:id': 'switch'
+                '!/dialog/:id': 'switch'
             },
             switch: function(id) {
-                if (!self.channels.get(id)) {
+                if (!self.dialogs.get(id)) {
                     self.router.navigate('!/', {
                         replace: true
                     });
                     return;
                 }
-                self.switchChannel(id);
+                self.switchDialog(id);
             }
         });
         this.router = new Router();
@@ -243,14 +243,14 @@
         var self = this;
 
         // helper
-        function joinChannels(channels) {
+        function joinDialogs(dialogs) {
 
-            var channelsIds = _.map(channels, function(channel) {
-                return channel.id;
+            var dialogsIds = _.map(dialogs, function(dialog) {
+                return dialog.id;
             });
 
-            _.each(channelsIds, function(channelId) {
-                self.joinChannel(channelId);
+            _.each(dialogsIds, function(dialogId) {
+                self.joinDialog(dialogId);
             });
         }
 
@@ -270,7 +270,7 @@
         this.io.on('connect', function() {
             console.log('connected...');
             self.getUser();
-            self.getChannels(joinChannels);
+            self.getDialogs(joinDialogs);
             self.status.set('connected', true);
         });
 
@@ -283,26 +283,26 @@
             self.addMessage(message);
         });
 
-        this.io.on('channels:new', function(channel) {
-            self.addOrGetChannel(channel);
-            self.joinChannel(channel.id); // TODO: не входить в созданный диалог! добавить кнопку для просмотра всех диалогов
+        this.io.on('dialogs:new', function(dialog) {
+            self.addOrGetDialog(dialog);
+            self.joinDialog(dialog.id); // TODO: не входить в созданный диалог! добавить кнопку для просмотра всех диалогов
         });
 
-        this.io.on('channels:updated', function(channel) {
-            self.channelUpdated(channel);
+        this.io.on('dialogs:updated', function(dialog) {
+            self.dialogUpdated(dialog);
         });
 
-        this.io.on('channels:archived', function(channel) {
-            self.channelArchived(channel);
+        this.io.on('dialogs:archived', function(dialog) {
+            self.dialogArchived(dialog);
         });
 
         /* GUI */
         this.events.on('messages:send', this.sendMessage, this);
-        this.events.on('channels:switch', this.switchChannel, this);
-        this.events.on('channels:leave', this.leaveChannel, this);
-        this.events.on('channels:update', this.updateChannel, this);
-        this.events.on('channels:create', this.createChannel, this);
-        this.events.on('channels:archive', this.archiveChannel, this);
+        this.events.on('dialogs:switch', this.switchDialog, this);
+        this.events.on('dialogs:leave', this.leaveDialog, this);
+        this.events.on('dialogs:update', this.updateDialog, this);
+        this.events.on('dialogs:create', this.createDialog, this);
+        this.events.on('dialogs:archive', this.archiveDialog, this);
     };
 
     Client.prototype.start = function() {

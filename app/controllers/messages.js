@@ -6,12 +6,12 @@ module.exports = function(opts) {
     var core = opts.core;
 
     /* Core */
-    core.on('messages:new', function(message, channel, user) {
+    core.on('messages:new', function(message, dialog, user) {
         var msg = message.toJSON();
         msg.owner = user;
-        msg.channel = channel;
+        msg.dialog = dialog;
 
-        io.to(channel._id).emit('messages:new', msg);
+        io.to(dialog._id).emit('messages:new', msg);
     });
 
     /* Routes */
@@ -21,7 +21,7 @@ module.exports = function(opts) {
         socket.on('messages:create', function(message, cb) {
             var options = {
                 owner: socket.request.user.id,
-                channel: message.channel,
+                dialog: message.dialog,
                 text: message.text
             };
 
@@ -34,7 +34,7 @@ module.exports = function(opts) {
 
         socket.on('messages:list', function(query, cb) {
             var options = {
-                channel: query.channel,
+                dialog: query.dialog,
                 since_id: query.since_id,
                 from: query.from,
                 to: query.to,

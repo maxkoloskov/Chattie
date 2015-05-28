@@ -1,7 +1,7 @@
 var EventEmitter = require('events').EventEmitter,
     util = require('util'),
     MessageManager = require('./messageManager'),
-    ChannelManager = require('./channelManager'),
+    DialogManager = require('./dialogManager'),
     AccountManager = require('./accountManager');
 
 function Core() {
@@ -15,7 +15,7 @@ function Core() {
         core: this
     });
 
-    this.channels = new ChannelManager({
+    this.dialogs = new DialogManager({
         core: this
     });
 }

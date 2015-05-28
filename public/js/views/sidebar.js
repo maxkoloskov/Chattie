@@ -3,17 +3,17 @@
 
     w.Chattie.SidebarView = Backbone.View.extend({
         events: {
-            'submit .c-channel-create': 'createChannel'
+            'submit .c-dialog-create': 'createDialog'
         },
         initialize: function(options) {
             this.client = options.client;
-            this.channels = options.channels;
+            this.dialogs = options.dialogs;
 
             /* SUBVIEWS */
-            //channels tabs
+            //dialogs tabs
             this.tabs = new w.Chattie.TabsView({
-                el: this.$el.find('#c-channels-list'),
-                channels: this.client.channels,
+                el: this.$el.find('#c-dialogs-list'),
+                dialogs: this.client.dialogs,
                 client: this.client
             });
 
@@ -26,15 +26,15 @@
             return this;
         },
 
-        createChannel: function(e) {
+        createDialog: function(e) {
             e.preventDefault();
-            var $modal = this.$('#c-add-channel-modal');
+            var $modal = this.$('#c-add-dialog-modal');
             var $form = this.$(e.target);
 
             var options = {
-                name: $form.find('.c-channel-name-input').val().trim(),
-                displayName: $form.find('.c-channel-displayname-input').val().trim(),
-                description: $form.find('.c-channel-description-input').val().trim(),
+                name: $form.find('.c-dialog-name-input').val().trim(),
+                displayName: $form.find('.c-dialog-displayname-input').val().trim(),
+                description: $form.find('.c-dialog-description-input').val().trim(),
                 // TODO: 2 колбека: success и failed
                 callback: function() {
                     $modal.modal('hide');
@@ -44,16 +44,16 @@
             };
 
             if (!options.displayName) {
-                $form.find('.c-channel-displayname-input').parent().addClass('has-error');
+                $form.find('.c-dialog-displayname-input').parent().addClass('has-error');
                 return;
             }
 
             if (!options.name) {
-                $form.find('.c-channel-name-input').parent().addClass('has-error');
+                $form.find('.c-dialog-name-input').parent().addClass('has-error');
                 return;
             }
 
-            this.client.events.trigger('channels:create', options);
+            this.client.events.trigger('dialogs:create', options);
         }
     });
 })(window, $, _);

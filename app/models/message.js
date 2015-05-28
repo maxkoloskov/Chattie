@@ -12,9 +12,9 @@ var MessageSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
-    channel: {
+    dialog: {
         type: ObjectId,
-        ref: 'Channel',
+        ref: 'Dialog',
         required: true
     },
     created: {
@@ -24,13 +24,13 @@ var MessageSchema = new mongoose.Schema({
     }
 });
 
-MessageSchema.index({ text: 'text', channel: 1, created: -1, _id: 1 });
+MessageSchema.index({ text: 'text', dialog: 1, created: -1, _id: 1 });
 
 MessageSchema.method('toJSON', function() {
     return {
         id: this._id,
         text: this.text,
-        channel: this.channel,
+        dialog: this.dialog,
         created: this.created,
         owner: this.owner
     };

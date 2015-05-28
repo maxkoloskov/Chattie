@@ -9,32 +9,32 @@ function MessageManager(options) {
 // new message create
 MessageManager.prototype.create = function(options, cb) {
     var Message = mongoose.model('Message'),
-        Channel = mongoose.model('Channel'),
+        Dialog = mongoose.model('Dialog'),
         User = mongoose.model('User');
 
     var self = this;
 
-    Channel.findById(options.channel, function(err, channel) {
+    Dialog.findById(options.dialog, function(err, dialog) {
         if (err) {
             return cb(err);
         }
-        if (!channel) {
-            return cb('Channel does not exist.');
+        if (!dialog) {
+            return cb('Dialog does not exist.');
         }
         Message.create(options, function(err, message) {
             if (err) {
                 return cb(err);
             }
 
-            channel.lastActive = message.created;
-            channel.save();
+            dialog.lastActive = message.created;
+            dialog.save();
 
             User.findById(message.owner, function(err, user) {
                 if (err) {
                     return cb(err);
                 }
-                typeof cb === 'function' && cb(null, message, channel, user);
-                self.core.emit('messages:new', message, channel, user);
+                typeof cb === 'function' && cb(null, message, dialog, user);
+                self.core.emit('messages:new', message, dialog, user);
             });
         });
     });
@@ -44,7 +44,7 @@ MessageManager.prototype.create = function(options, cb) {
 MessageManager.prototype.list = function(options, cb) {
     options = options || {};
 
-    if (!options.channel) {
+    if (!options.dialog) {
         return cb(null, []);
     }
 
@@ -60,7 +60,7 @@ MessageManager.prototype.list = function(options, cb) {
         User = mongoose.model('User');
 
     var find = Message.find({
-        channel: options.channel
+        dialog: options.dialog
     });
 
     if (options.since_id) {
@@ -86,8 +86,8 @@ MessageManager.prototype.list = function(options, cb) {
             find.populate('owner', 'id username fullname avatar');
         }
 
-        if (_.includes(includes, 'channel')) {
-            find.populate('channel', 'id name displayName');
+        if (_.includes(includes, 'dialog')) {
+            find.populate('dialog', 'id name displayName');
         }
     }
 

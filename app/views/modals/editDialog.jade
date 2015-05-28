@@ -1,5 +1,5 @@
-// Edit channel modal
-#c-edit-channel-modal.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
+// Edit dialog modal
+#c-edit-dialog-modal.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
   .modal-dialog
     .modal-content
       .modal-header
@@ -8,11 +8,11 @@
         h4.modal-title Редактирование диалога
       .modal-body
         .form-group
-          label(for='c-channel-displayname') Отображаемое имя
-          input.c-channel-displayname-input(type='text' placeholder='Отображаемое имя').form-control
+          label(for='c-dialog-displayname') Отображаемое имя
+          input.c-dialog-displayname-input(type='text' placeholder='Отображаемое имя').form-control
         .form-group
-          label(for='c-channel-description') Описание
-          input.c-channel-description-input(type='text' placeholder='Описание').form-control
+          label(for='c-dialog-description') Описание
+          input.c-dialog-description-input(type='text' placeholder='Описание').form-control
       .modal-footer
         button.btn.btn-default.btn-danger.pull-left(type='button') Удалить диалог
         button.btn.btn-default(type='button' data-dismiss='modal') Закрыть

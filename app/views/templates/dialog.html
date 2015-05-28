@@ -1,16 +1,16 @@
-<script type="text/x-handlebars-template" id="template-channel">
-    <div class="c-channel" data-id="{{id}}" style="display: none;">
+<script type="text/x-handlebars-template" id="template-dialog">
+    <div class="c-dialog" data-id="{{id}}" style="display: none;">
         <div class="c-header">
-            <div id="c-channel-header" class="c-channel-header">
-                <span class="c-channel-title">{{displayName}}</span>
-                <span class="c-channel-topic">{{description}}</span>
+            <div id="c-dialog-header" class="c-dialog-header">
+                <span class="c-dialog-title">{{displayName}}</span>
+                <span class="c-dialog-topic">{{description}}</span>
             </div>
-            <div class="c-channel-toolbar">
-                <!--<span class="c-channel-toolbar-item">-->
+            <div class="c-dialog-toolbar">
+                <!--<span class="c-dialog-toolbar-item">-->
                     <!--<i class="glyphicon glyphicon-user"></i>-->
-                    <!--<span class="c-channel-user-count">1337</span>-->
+                    <!--<span class="c-dialog-user-count">1337</span>-->
                 <!--</span>-->
-                <span class="c-channel-toolbar-item c-channel-edit glyphicon glyphicon-pencil"></span>
+                <span class="c-dialog-toolbar-item c-dialog-edit glyphicon glyphicon-pencil"></span>
             </div>
         </div>
         <div class="c-footer">
@@ -31,8 +31,8 @@
         <div class="c-body">
             <div id="c-messages-container" class="c-messages-container"></div>
         </div>
-        <!-- Edit channel modal-->
-        <div class="c-edit-channel-modal modal fade">
+        <!-- Edit dialog modal-->
+        <div class="c-edit-dialog-modal modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -43,18 +43,18 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="c-channel-displayname-input">Отображаемое имя</label>
-                            <input class="c-channel-displayname-input form-control" value="{{displayName}}" type="text"/>
+                            <label for="c-dialog-displayname-input">Отображаемое имя</label>
+                            <input class="c-dialog-displayname-input form-control" value="{{displayName}}" type="text"/>
                         </div>
                         <div class="form-group">
-                            <label for="c-channel-description-input">Описание</label>
-                            <input class="c-channel-description-input form-control" value="{{description}}" type="text"/>
+                            <label for="c-dialog-description-input">Описание</label>
+                            <input class="c-dialog-description-input form-control" value="{{description}}" type="text"/>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-default btn-danger pull-left c-archive-channel" type="button">Удалить диалог</button>
+                        <button class="btn btn-default btn-danger pull-left c-archive-dialog" type="button">Удалить диалог</button>
                         <button class="btn btn-default" type="button" data-dismiss="modal">Закрыть</button>
-                        <button class="btn btn-primary c-save-edit-channel" type="button">Сохранить</button>
+                        <button class="btn btn-primary c-save-edit-dialog" type="button">Сохранить</button>
                     </div>
                 </div>
             </div>

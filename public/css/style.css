@@ -6594,7 +6594,7 @@ body {
   min-width: 240px;
   background: #162955;
 }
-.c-channels-browser {
+.c-dialogs-browser {
   height: 100%;
   background: #fffffe;
 }
@@ -6670,10 +6670,10 @@ body {
   font-size: 16px;
   overflow-y: auto;
 }
-.c-navigation .c-channels-navigation {
+.c-navigation .c-dialogs-navigation {
   margin: 1rem 0 2rem;
 }
-.c-navigation .c-channels-navigation .c-channels-list-header {
+.c-navigation .c-dialogs-navigation .c-dialogs-list-header {
   float: left;
   text-align: left;
   font-size: 1rem;
@@ -6683,11 +6683,11 @@ body {
   font-weight: 700;
   color: #888;
 }
-.c-navigation .c-channels-navigation .c-channels-list-header:hover {
+.c-navigation .c-dialogs-navigation .c-dialogs-list-header:hover {
   color: #fff;
   cursor: pointer;
 }
-.c-navigation .c-channels-navigation .c-channels-add {
+.c-navigation .c-dialogs-navigation .c-dialogs-add {
   float: right;
   margin-right: 1rem;
   font-size: 0.9rem;
@@ -6696,11 +6696,11 @@ body {
   display: block;
   width: 1rem;
 }
-.c-navigation .c-channels-navigation .c-channels-add:hover {
+.c-navigation .c-dialogs-navigation .c-dialogs-add:hover {
   color: #fff;
   cursor: pointer;
 }
-.c-navigation .c-channels-navigation ul.c-channels-list {
+.c-navigation .c-dialogs-navigation ul.c-dialogs-list {
   list-style-type: none;
   text-align: left;
   width: 100%;
@@ -6708,7 +6708,7 @@ body {
   padding: 0;
   display: block;
 }
-.c-navigation .c-channels-navigation ul.c-channels-list li.c-channel-tab {
+.c-navigation .c-dialogs-navigation ul.c-dialogs-list li.c-dialog-tab {
   margin-top: 1px;
   font-size: 1rem;
   line-height: 1.5rem;
@@ -6716,9 +6716,9 @@ body {
   position: relative;
   display: block;
 }
-.c-navigation .c-channels-navigation ul.c-channels-list li.c-channel-tab a,
-.c-navigation .c-channels-navigation ul.c-channels-list li.c-channel-tab a:link,
-.c-navigation .c-channels-navigation ul.c-channels-list li.c-channel-tab a:visited {
+.c-navigation .c-dialogs-navigation ul.c-dialogs-list li.c-dialog-tab a,
+.c-navigation .c-dialogs-navigation ul.c-dialogs-list li.c-dialog-tab a:link,
+.c-navigation .c-dialogs-navigation ul.c-dialogs-list li.c-dialog-tab a:visited {
   color: #888;
   display: block;
   height: 1.5rem;
@@ -6727,24 +6727,24 @@ body {
   border-radius: 0.5rem 0 0 0.5rem;
   cursor: pointer;
 }
-.c-navigation .c-channels-navigation ul.c-channels-list li.c-channel-tab a:hover,
-.c-navigation .c-channels-navigation ul.c-channels-list li.c-channel-tab a:link:hover,
-.c-navigation .c-channels-navigation ul.c-channels-list li.c-channel-tab a:visited:hover {
+.c-navigation .c-dialogs-navigation ul.c-dialogs-list li.c-dialog-tab a:hover,
+.c-navigation .c-dialogs-navigation ul.c-dialogs-list li.c-dialog-tab a:link:hover,
+.c-navigation .c-dialogs-navigation ul.c-dialogs-list li.c-dialog-tab a:visited:hover {
   background: #07163a;
   text-decoration: none;
 }
-.c-navigation .c-channels-navigation ul.c-channels-list li.c-channel-tab a .c-channel-tab-title,
-.c-navigation .c-channels-navigation ul.c-channels-list li.c-channel-tab a:link .c-channel-tab-title,
-.c-navigation .c-channels-navigation ul.c-channels-list li.c-channel-tab a:visited .c-channel-tab-title {
+.c-navigation .c-dialogs-navigation ul.c-dialogs-list li.c-dialog-tab a .c-dialog-tab-title,
+.c-navigation .c-dialogs-navigation ul.c-dialogs-list li.c-dialog-tab a:link .c-dialog-tab-title,
+.c-navigation .c-dialogs-navigation ul.c-dialogs-list li.c-dialog-tab a:visited .c-dialog-tab-title {
   width: 86%;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
   display: inline-block;
 }
-.c-navigation .c-channels-navigation ul.c-channels-list li.c-channel-tab a .c-channel-tab-alerts,
-.c-navigation .c-channels-navigation ul.c-channels-list li.c-channel-tab a:link .c-channel-tab-alerts,
-.c-navigation .c-channels-navigation ul.c-channels-list li.c-channel-tab a:visited .c-channel-tab-alerts {
+.c-navigation .c-dialogs-navigation ul.c-dialogs-list li.c-dialog-tab a .c-dialog-tab-alerts,
+.c-navigation .c-dialogs-navigation ul.c-dialogs-list li.c-dialog-tab a:link .c-dialog-tab-alerts,
+.c-navigation .c-dialogs-navigation ul.c-dialogs-list li.c-dialog-tab a:visited .c-dialog-tab-alerts {
   position: absolute;
   top: 3px;
   right: 1rem;
@@ -6757,7 +6757,7 @@ body {
   vertical-align: baseline;
   color: #fff;
 }
-.c-navigation .c-channels-navigation ul.c-channels-list li.c-channel-tab.active a {
+.c-navigation .c-dialogs-navigation ul.c-dialogs-list li.c-dialog-tab.active a {
   background: #020c22;
   color: #fff;
 }
@@ -6823,14 +6823,14 @@ body {
   top: 0.5rem;
   color: #aaa;
 }
-.c-channel-header {
+.c-dialog-header {
   position: relative;
   height: 100%;
   max-width: 80%;
   margin: 6px 0 0;
   float: left;
 }
-.c-channel-header .c-channel-title {
+.c-dialog-header .c-dialog-title {
   font-weight: 600;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -6842,7 +6842,7 @@ body {
   font-size: 1.2rem;
   margin-left: 20px;
 }
-.c-channel-header .c-channel-topic {
+.c-dialog-header .c-dialog-topic {
   color: #9e9ea6;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -6853,18 +6853,18 @@ body {
 /*max-width: 100%*/
   white-space: nowrap;
 }
-.c-channel-toolbar {
+.c-dialog-toolbar {
   position: absolute;
   top: 1.4rem;
   right: 40px;
 }
-.c-channel-toolbar .c-channel-toolbar-item {
+.c-dialog-toolbar .c-dialog-toolbar-item {
   margin-left: 1rem;
   color: #888;
   cursor: pointer;
   font-size: 1.1rem;
 }
-.c-channel-toolbar .c-channel-toolbar-item:hover {
+.c-dialog-toolbar .c-dialog-toolbar-item:hover {
   color: #444;
 }
 .c-msg-input-container {
@@ -6933,10 +6933,10 @@ body {
   background: rgba(88,88,88,0.1);
   border-radius: 6px;
 }
-.c-channels {
+.c-dialogs {
   height: 100%;
 }
-.c-channels .c-channel {
+.c-dialogs .c-dialog {
   height: 100%;
 }
 .c-header {

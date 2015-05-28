@@ -8,24 +8,24 @@
 
             /* SUBVIEWS */
 
-            /* ChannelsBrowser */
-            this.channelsBrowser = new w.Chattie.ChannelsBrowserView({
-                el: this.$el.find('#c-channels-browser'),
+            /* DialogsBrowser */
+            this.dialogsBrowser = new w.Chattie.DialogsBrowserView({
+                el: this.$el.find('#c-dialogs-browser'),
                 client: this.client,
-                channels: this.client.channels
+                dialogs: this.client.dialogs
             });
 
             /* Sidebar */
             this.sidebar = new w.Chattie.SidebarView({
                 el: this.$el.find('#c-sidebar'),
                 client: this.client,
-                channels: this.channels
+                dialogs: this.dialogs
             });
 
-            ////channels tabs
+            ////dialogs tabs
             //this.tabs = new w.Chattie.TabsView({
-            //    el: this.$el.find('#c-channels-list'),
-            //    channels: this.client.channels,
+            //    el: this.$el.find('#c-dialogs-list'),
+            //    dialogs: this.client.dialogs,
             //    client: this.client
             //});
             //

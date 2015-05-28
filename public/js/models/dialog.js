@@ -1,7 +1,7 @@
 (function (w) {
     w.Chattie = w.Chattie || {};
 
-    w.Chattie.ChannelModel = Backbone.Model.extend({
+    w.Chattie.DialogModel = Backbone.Model.extend({
         initialize: function() {
             this.messages = new w.Chattie.MessagesCollection();
             this.members = new w.Chattie.UsersCollection();
@@ -17,8 +17,8 @@
         loaded: false
     });
 
-    w.Chattie.ChannelsCollection = Backbone.Collection.extend({
-        model: w.Chattie.ChannelModel,
+    w.Chattie.DialogsCollection = Backbone.Collection.extend({
+        model: w.Chattie.DialogModel,
         initialize: function() {
             this.current = new Backbone.Model();
             this.last = new Backbone.Model();

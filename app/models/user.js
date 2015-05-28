@@ -35,9 +35,9 @@ var UserSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    channels: [{
+    dialogs: [{
         type: ObjectId,
-        ref: 'Channel'
+        ref: 'Dialog'
     }],
     messages: [{
         type: ObjectId,
