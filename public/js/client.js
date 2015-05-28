@@ -86,10 +86,11 @@
         console.log('channel switched to ' + id);
 
         this.channels.last.set('id', this.channels.current.get('id'));
-        if (!id) {
-            //this.router.navigate('!/', {
-            //    replace: true
-            //});
+        if (!id || id === 'bg') {
+            this.channels.current.set('id', 'bg');
+            this.router.navigate('!/', {
+                replace: true
+            });
             return;
         }
         var channel = this.channels.get(id);
@@ -165,10 +166,59 @@
 
         if (id === this.channels.current.get('id')) {
             var channel = this.channels.get(this.channels.last.get('id'));
-            this.switchChannel(channel && channel.get('joined') ? channel.id : '');
+            this.switchChannel(channel && channel.get('joined') ? channel.id : 'bg');
         }
     };
 
+    Client.prototype.updateChannel = function(channel) {
+        this.io.emit('channels:update', channel);
+    };
+
+    Client.prototype.channelUpdated = function(updatedChannel) {
+        var channel = this.channels.get(updatedChannel.id);
+        if (!channel) {
+            return;
+        }
+        channel.set(updatedChannel);
+    };
+
+    Client.prototype.createChannel = function(options) {
+        var self = this;
+        var channel = {
+            name: options.name,
+            displayName: options.displayName,
+            description: options.description
+        };
+        var callback = options.callback;
+        self.io.emit('channels:create', channel, function(channel) {
+            if (channel && channel.errors) {
+                // TODO: информация об ошибке
+                console.log('Невозможно создать диалог :( Уникальное имя не уникально :)');
+            } else if (channel && channel.id) {
+                self.addOrGetChannel(channel);
+                self.joinChannel(channel.id, true);//self.switchChannel(channel.id);
+            }
+            callback && callback(channel);
+        });
+    };
+
+    Client.prototype.archiveChannel = function(channelId) {
+        //console.log('archive channel ' + channelId);
+        this.io.emit('channels:archive', channelId);
+    };
+
+    Client.prototype.channelArchived = function(channel) {
+        var self =this;
+        // TODO: this is KOSTYL' :)
+        setTimeout(function() {
+            self.leaveChannel(channel.id);
+            self.channels.remove(channel.id);
+        }, 300);
+        //this.leaveChannel(channel.id);
+        //this.channels.remove(channel.id);
+    };
+
+    /* Base */
     Client.prototype.route = function() {
         var self = this;
         var Router = Backbone.Router.extend({
@@ -224,19 +274,35 @@
             self.status.set('connected', true);
         });
 
+        this.io.on('disconnect', function() {
+            console.log('disconnected...');
+            self.status.set('connected', false);
+        });
+
         this.io.on('messages:new', function(message) {
             self.addMessage(message);
         });
 
-        this.io.on('disconnect', function() {
-            console.log('disconnected...');
-            self.status.set('connected', false);
+        this.io.on('channels:new', function(channel) {
+            self.addOrGetChannel(channel);
+            self.joinChannel(channel.id); // TODO: не входить в созданный диалог! добавить кнопку для просмотра всех диалогов
+        });
+
+        this.io.on('channels:updated', function(channel) {
+            self.channelUpdated(channel);
+        });
+
+        this.io.on('channels:archived', function(channel) {
+            self.channelArchived(channel);
         });
 
         /* GUI */
         this.events.on('messages:send', this.sendMessage, this);
         this.events.on('channels:switch', this.switchChannel, this);
         this.events.on('channels:leave', this.leaveChannel, this);
+        this.events.on('channels:update', this.updateChannel, this);
+        this.events.on('channels:create', this.createChannel, this);
+        this.events.on('channels:archive', this.archiveChannel, this);
     };
 
     Client.prototype.start = function() {

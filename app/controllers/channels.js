@@ -7,7 +7,15 @@ module.exports = function(opts) {
 
     /* Core */
     core.on('channels:new', function(channel) {
-        io.emit('channel:new', channel);
+        io.emit('channels:new', channel);
+    });
+
+    core.on('channels:update', function(channel) {
+        io.emit('channels:updated', channel);
+    });
+
+    core.on('channels:archive', function(channel) {
+        io.emit('channels:archived', channel);
     });
 
     /* Routes */
@@ -37,6 +45,39 @@ module.exports = function(opts) {
                     cb([]);
                 }
                 cb(channels);
+            });
+        });
+
+        // channels -> create
+        socket.on('channels:create', function(options, cb) {
+            options.owner = socket.request.user.id;
+            core.channels.create(options, function(err, channel) {
+                if (err) {
+                    return cb({errors: true});
+                }
+                cb(channel);
+            });
+        });
+
+        // channels -> archive
+        socket.on('channels:archive', function(channelId, cb) {
+            core.channels.archive(channelId, function(err, channel) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+        });
+
+        // channels -> update
+        socket.on('channels:update', function(options, cb) {
+            var channelId = options.id;
+            var updateOpts = {
+                displayName: options.displayName,
+                description: options.description
+            };
+
+            core.channels.update(channelId, updateOpts, function(err, channel) {
+                if (err) console.log(err);
             });
         });
 

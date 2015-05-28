@@ -6,10 +6,11 @@
                 <span class="c-channel-topic">{{description}}</span>
             </div>
             <div class="c-channel-toolbar">
-                <span class="c-channel-toolbar-item c-channel-edit glyphicon glyphicon-user"
-                      data-toggle="modal" data-target="#c-edit-channel-modal"></span>
-                <span id="c-channel-edit" class="c-channel-toolbar-item c-channel-edit glyphicon glyphicon-pencil"
-                      data-toggle="modal" data-target="#c-edit-channel-modal"></span>
+                <!--<span class="c-channel-toolbar-item">-->
+                    <!--<i class="glyphicon glyphicon-user"></i>-->
+                    <!--<span class="c-channel-user-count">1337</span>-->
+                <!--</span>-->
+                <span class="c-channel-toolbar-item c-channel-edit glyphicon glyphicon-pencil"></span>
             </div>
         </div>
         <div class="c-footer">
@@ -29,6 +30,34 @@
         </div>
         <div class="c-body">
             <div id="c-messages-container" class="c-messages-container"></div>
+        </div>
+        <!-- Edit channel modal-->
+        <div class="c-edit-channel-modal modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                        <h4 class="modal-title">Редактирование диалога</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="c-channel-displayname-input">Отображаемое имя</label>
+                            <input class="c-channel-displayname-input form-control" value="{{displayName}}" type="text"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="c-channel-description-input">Описание</label>
+                            <input class="c-channel-description-input form-control" value="{{description}}" type="text"/>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default btn-danger pull-left c-archive-channel" type="button">Удалить диалог</button>
+                        <button class="btn btn-default" type="button" data-dismiss="modal">Закрыть</button>
+                        <button class="btn btn-primary c-save-edit-channel" type="button">Сохранить</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </script>

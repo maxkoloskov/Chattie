@@ -77,7 +77,8 @@ UserSchema.method('toJSON', function() {
         username: this.username,
         fullname: this.fullname,
         avatar: this.avatar,
-        created: this.created
+        created: this.created,
+        isAdmin: this.isAdmin
     };
 });
 

@@ -21,6 +21,7 @@ block js
 
   script(src="/js/views/connectionIndicators.js")
   script(src="/js/views/tabs.js")
+  script(src="/js/views/sidebar.js")
   script(src="/js/views/channel.js")
   script(src="/js/views/channelsBrowser.js")
   script(src="/js/views/clientView.js")
@@ -34,12 +35,13 @@ block templates
   include ./templates/message.html
 
 block modals
-  include ./modals/addChannel
   include ./modals/editChannel
 
 block content
   div#c-client-ui.c-client-ui
-    div.c-sidebar
+
+    div#c-sidebar.c-sidebar
+      include ./modals/addChannel
       div.dropdown
         div.c-account-panel
           a.c-account-button.dropdown-toggle(data-toggle="dropdown")
@@ -55,7 +57,6 @@ block content
             span.c-dropmenu-icon.glyphicon.glyphicon-chevron-down
           ul.dropdown-menu.dropdown-menu-right
             li: a(href='/profile/#{user.username}' target='_blank') Профиль
-            li: a Настройки аккаунта
             li.divider
             li: a(href='/logout') Выйти
       div.c-navigation
@@ -64,6 +65,7 @@ block content
           span#c-channel-add.c-channels-add.glyphicon.glyphicon-plus(data-toggle='modal' data-target='#c-add-channel-modal')
           div.clearfix
           ul#c-channels-list.c-channels-list
+
 
     div#c-channels-browser.c-channels-browser
       div#c-background.c-background

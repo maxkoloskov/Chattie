@@ -11,7 +11,6 @@ var core = require('./app/core'),
     models = require('./app/models'),
     controllers = require('./app/controllers');
 
-
 var config = require('./app/config'),
     auth = require('./app/lib/auth'),
     mongoose = require('./app/lib/mongoose');

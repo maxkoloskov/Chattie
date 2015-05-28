@@ -3,7 +3,10 @@
 
     w.Chattie.ChannelView = Backbone.View.extend({
         events: {
-            'keypress .c-msg-input': 'sendMessage'
+            'keypress .c-msg-input': 'sendMessage',
+            'click .c-channel-edit': 'showEditChannel',
+            'click .c-save-edit-channel': 'saveEditChannel',
+            'click .c-archive-channel': 'archiveChannel'
         },
 
         initialize: function(options) {
@@ -78,6 +81,36 @@
             this.$('.c-channel-header .c-channel-title').text(this.model.get('displayName'));
             this.$('.c-channel-header .c-channel-topic').text(this.model.get('description'));
             //this.$('.c-channel-header .name').text('#' + this.model.get('name'));
+        },
+
+        showEditChannel: function() {
+            this.$('.c-edit-channel-modal').modal();
+        },
+
+        saveEditChannel: function() {
+            var $displayName = this.$('.c-edit-channel-modal input.c-channel-displayname-input');
+            var $description = this.$('.c-edit-channel-modal input.c-channel-description-input');
+
+            if (!$displayName.val().trim()) {
+                $displayName.parent().addClass('has-error');
+                return;
+            }
+
+            $displayName.parent().removeClass('has-error');
+
+            this.client.events.trigger('channels:update', {
+                id: this.model.id,
+                displayName: $displayName.val().trim(),
+                description: $description.val().trim()
+            });
+
+            this.$('.c-edit-channel-modal').modal('hide');
+        },
+
+        archiveChannel: function() {
+            // TODO: запросить подтверждение
+            this.$('.c-edit-channel-modal').modal('hide');
+            this.client.events.trigger('channels:archive', this.model.id);
         }
 
     });

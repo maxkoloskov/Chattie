@@ -59,7 +59,7 @@
 
         switch: function(id) {
 
-            if (!id) {
+            if (!id || id === 'bg') {
                 this.hide();
                 return;
             }

@@ -15,20 +15,25 @@
                 channels: this.client.channels
             });
 
-
             /* Sidebar */
-            //channels tabs
-            this.tabs = new w.Chattie.TabsView({
-                el: this.$el.find('#c-channels-list'),
-                channels: this.client.channels,
-                client: this.client
+            this.sidebar = new w.Chattie.SidebarView({
+                el: this.$el.find('#c-sidebar'),
+                client: this.client,
+                channels: this.channels
             });
 
-            // online/offline
-            this.status = new w.Chattie.ConnectionIndicatorsView({
-                el: this.$el.find('#c-connection-indicators'),
-                client: this.client
-            });
+            ////channels tabs
+            //this.tabs = new w.Chattie.TabsView({
+            //    el: this.$el.find('#c-channels-list'),
+            //    channels: this.client.channels,
+            //    client: this.client
+            //});
+            //
+            //// online/offline
+            //this.status = new w.Chattie.ConnectionIndicatorsView({
+            //    el: this.$el.find('#c-connection-indicators'),
+            //    client: this.client
+            //});
 
             return this;
         }

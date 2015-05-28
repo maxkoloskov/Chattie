@@ -6593,7 +6593,6 @@ body {
   width: 240px;
   min-width: 240px;
   background: #162955;
-  z-index: 100;
 }
 .c-channels-browser {
   height: 100%;
@@ -6828,7 +6827,7 @@ body {
   position: relative;
   height: 100%;
   max-width: 80%;
-  margin: 8px 0 0;
+  margin: 6px 0 0;
   float: left;
 }
 .c-channel-header .c-channel-title {
@@ -6839,7 +6838,7 @@ body {
   display: block;
   width: 100%;
   color: #444;
-  line-height: 1.2rem;
+  line-height: 1.5rem;
   font-size: 1.2rem;
   margin-left: 20px;
 }

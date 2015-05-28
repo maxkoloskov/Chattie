@@ -18,7 +18,6 @@ var ChannelSchema = new mongoose.Schema({
     description: {
         type: String,
         trim: true
-        //required: true
     },
     owner: {
         type: ObjectId,
@@ -36,6 +35,10 @@ var ChannelSchema = new mongoose.Schema({
     lastActive: {
         type: Date,
         default: Date.now
+    },
+    isArchived: {
+        type: Boolean,
+        default: false
     }
 });
 
