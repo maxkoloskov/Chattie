@@ -227,6 +227,8 @@
             },
             switch: function(id) {
                 if (!self.dialogs.get(id)) {
+                    self.dialogs.last.set('id', self.dialogs.current.get('id'));
+                    self.dialogs.current.set('id', 'bg');
                     self.router.navigate('!/', {
                         replace: true
                     });
