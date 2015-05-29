@@ -6,7 +6,9 @@
         <div class="c-message-meta">
             {{#unless isContinuation}}
             <span class="c-message-name">
-                <span class="c-message-username">{{owner.username}}</span>
+                <span class="c-message-username">
+                    <a href="/profile/{{owner.username}}" target="_blank">{{owner.username}}</a>
+                </span>
                 <span class="c-message-fullname">{{owner.fullname}}</span>
             </span>
             <time class="c-message-time" title="{{created}}"></time>

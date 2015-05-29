@@ -1,0 +1,11 @@
+extends layout
+block title
+  title #{profile.username}'s profile  &bull; Chattie
+block css
+  link(rel='stylesheet' href='/css/style.css')
+
+
+block content
+  img(src="/assets/avatars/#{profile.avatar}")
+  p #{profile.username}
+  p #{profile.fullname}

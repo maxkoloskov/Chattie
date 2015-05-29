@@ -6812,6 +6812,13 @@ body {
   font-weight: 700;
   display: block;
 }
+.c-message-name .c-message-username a {
+  color: inherit;
+  text-decoration: none;
+}
+.c-message-name .c-message-username a:hover {
+  border-bottom: 1px dotted #aaa;
+}
 .c-message-name .c-message-fullname {
   color: #aaa;
   font-weight: 400;

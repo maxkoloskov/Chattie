@@ -31,7 +31,14 @@ module.exports = function(opts) {
     });
 
     app.get('/profile/:username', requireAuth, function(req, res) {
-        res.end(req.params.username);
+        // TODO: запросить реального пользователя
+        res.render('profile', {
+            profile: {
+                username: 'username',
+                fullname: 'Full Name',
+                avatar: 'default.jpg'
+            }
+        });
     });
 
     /* Sockets */
