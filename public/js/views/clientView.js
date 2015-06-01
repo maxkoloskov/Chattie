@@ -22,19 +22,6 @@
                 dialogs: this.dialogs
             });
 
-            ////dialogs tabs
-            //this.tabs = new w.Chattie.TabsView({
-            //    el: this.$el.find('#c-dialogs-list'),
-            //    dialogs: this.client.dialogs,
-            //    client: this.client
-            //});
-            //
-            //// online/offline
-            //this.status = new w.Chattie.ConnectionIndicatorsView({
-            //    el: this.$el.find('#c-connection-indicators'),
-            //    client: this.client
-            //});
-
             return this;
         }
     });

@@ -4,7 +4,7 @@
   "description": "Chat app based on node.js, socket.io, mongodb. My personal sandbox.",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node ./bin/server"
   },
   "repository": {
     "type": "git",
